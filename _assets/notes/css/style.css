@@ -1,0 +1,11 @@
+.btn {
+    max-width: 66px;
+    background-color: #cccccc;
+    text-align: center;
+    padding: 6px;
+    transition: .3s;
+    cursor: pointer;
+}
+.btn:hover {
+    background-color: #666666;
+}
