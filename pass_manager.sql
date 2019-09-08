@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost:3306
--- Время создания: Сен 08 2019 г., 22:18
+-- Время создания: Сен 09 2019 г., 00:58
 -- Версия сервера: 5.7.27-0ubuntu0.18.04.1
 -- Версия PHP: 7.2.22-1+ubuntu18.04.1+deb.sury.org+1
 
@@ -59,7 +59,8 @@ CREATE TABLE `groups` (
 
 INSERT INTO `groups` (`id`, `name`, `title`, `path`) VALUES
 (1, 'folder_1', 'Folder 1', '/'),
-(2, 'sub_1', 'Sub 1', 'folder_1');
+(2, 'sub_1', 'Sub 1', 'folder_1'),
+(3, 'folder_2', 'Folder 2', '/');
 
 -- --------------------------------------------------------
 
@@ -122,7 +123,7 @@ ALTER TABLE `auth`
 -- AUTO_INCREMENT для таблицы `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT для таблицы `passwd`
 --

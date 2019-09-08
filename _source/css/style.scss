@@ -1,6 +1,15 @@
 body {
     background-color: #666666;
 }
+.page {
+    display: flex;
+    .tree {
+        width: 30%;
+    }
+    .content {
+        width: 70%;
+    }
+}
 .btn {
     max-width: 66px;
     background-color: #cccccc;
