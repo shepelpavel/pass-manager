@@ -1,6 +1,13 @@
 body {
     background-color: #666666;
 }
+.link {
+    cursor: pointer;
+    transition: .3s;
+    &:hover {
+        text-decoration: underline;
+    }
+}
 .page {
     display: flex;
     .tree {

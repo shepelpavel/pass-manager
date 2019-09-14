@@ -1,6 +1,12 @@
 <?php include $_SERVER['DOCUMENT_ROOT'].'/chunks/html/header.php'; ?>
 
-<p style="text-align: right;"><a href="/change-pass.php">Изменить пароль</a> | <a href="/admin.php?do=logout">Выход</a></p>
+<p style="text-align: right;">
+    <input class="js-keyword" type="text" name="keyword" value="">
+    <span> | </span>
+    <a href="/change-pass.php">Изменить пароль</a>
+    <span> | </span>
+    <a href="/admin.php?do=logout">Выход</a>
+</p>
 
 <section class="page">
     <div id="tree" class="tree"></div>
