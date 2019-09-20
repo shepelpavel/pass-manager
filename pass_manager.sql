@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost:3306
--- Время создания: Сен 09 2019 г., 00:58
+-- Время создания: Сен 20 2019 г., 19:03
 -- Версия сервера: 5.7.27-0ubuntu0.18.04.1
 -- Версия PHP: 7.2.22-1+ubuntu18.04.1+deb.sury.org+1
 
@@ -30,6 +30,7 @@ CREATE TABLE `auth` (
   `id` int(10) NOT NULL,
   `login` varchar(100) NOT NULL,
   `pass` varchar(255) NOT NULL,
+  `decryptor` varchar(255) NOT NULL,
   `fail` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -37,8 +38,8 @@ CREATE TABLE `auth` (
 -- Дамп данных таблицы `auth`
 --
 
-INSERT INTO `auth` (`id`, `login`, `pass`, `fail`) VALUES
-(1, 'shepel', 'd74bb1b7d944f940882fa62ca621b97d', 0);
+INSERT INTO `auth` (`id`, `login`, `pass`, `decryptor`, `fail`) VALUES
+(1, 'shepel', '08026492ff33d61012a748f50277b5c5', '038c3e823c5952aa33ac5f561b9329dc', 0);
 
 -- --------------------------------------------------------
 

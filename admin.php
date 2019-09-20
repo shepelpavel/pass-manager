@@ -9,7 +9,6 @@
 </p>
 
 <section class="page">
-    <div id="tree" class="tree"></div>
     <div id="content" class="content"></div>
 </section>
 

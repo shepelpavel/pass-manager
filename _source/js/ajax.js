@@ -1,17 +1,3 @@
-// функция получения дерева каталогов
-function getTree(path) {
-    $.ajax({
-        type: 'POST',
-        url: '/core/fn/get_tree.php',
-        data: "path=" + path,
-        success: function(data) {
-            $('#tree').animate({opacity:0}, 300, function() {
-                $('#tree').html(data);
-            });
-            $('#tree').animate({opacity:1}, 300);
-        }
-    });
-}
 
 // функция получения контента каталогов
 function getContent(path) {
@@ -46,13 +32,11 @@ function getPass(name) {
 $(document).ready(function() {
     
     // получение стартовой страницы
-    getTree('/');
     getContent('/');
     
     // формирование страницы каталога
     $('body').on('click', '.js-tree-path', function() {
         var target_path = $(this).attr('target');
-        getTree(target_path);
         getContent(target_path);
     });
     

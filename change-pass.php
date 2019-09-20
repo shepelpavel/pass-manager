@@ -6,9 +6,10 @@ if ($_POST['submit']) {
     if ($_POST['pass_first'] == $_POST['pass_second'] && strlen($_POST['pass_first']) > 5) {
         
         $new_pass = md5($sault . md5($_POST['pass_first']));
+        $new_key = md5($new_pass);
         
         $connect = mysqli_connect($host, $user, $password, $database) or die("Error " . mysqli_error($connect));
-        $query = "UPDATE auth SET pass = '".$new_pass."' WHERE id = 1";
+        $query = "UPDATE auth SET pass = '".$new_pass."', decryptor = '".$new_key."' WHERE id = 1";
         $result = mysqli_query($connect, $query) or die("Error " . mysqli_error($connect)); 
         if ($result) {
             echo '<p>Пароль изменен</p>';

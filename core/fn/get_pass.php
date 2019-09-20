@@ -12,6 +12,7 @@ mysqli_close($connect);
 ?>
 
 <h2><?= $pass['title'] ?></h2>
+<p class="link js-tree-path" target="<?= $pass['path'] ?>">Назад</p>
 <input class="js-input-title" type="text" name="title" value="<?= $pass['title'] ?>">
 <br>
 <input class="js-input-link js-crypt" type="text" name="link" value="<?= $pass['link'] ?>">

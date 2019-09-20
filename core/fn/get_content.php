@@ -34,6 +34,7 @@ mysqli_close($connect);
 ?>
 
 <h2><?= $folder['title'] ?></h2>
+<p class="link js-tree-path" target="<?= $folder['path'] ?>">Назад</p>
 <p>
 	<ul>
 		<?php foreach ($folders_res as $key => $value) { ?>
