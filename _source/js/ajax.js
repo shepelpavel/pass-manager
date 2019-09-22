@@ -29,6 +29,30 @@ function getPass(name) {
     });
 }
 
+// функция дешифровки ключа при фокусе
+function focusInDecrypt(elem, text) {
+    $.ajax({
+        type: 'POST',
+        url: '/core/fn/get_key.php',
+        success: function(data) {
+            var decode = decoding(data, text);
+            $(elem).val(decode);
+        }
+    });
+}
+
+// функция шифрования ключа при потере фокуса
+function focusOutCrypt(elem, text) {
+    $.ajax({
+        type: 'POST',
+        url: '/core/fn/get_key.php',
+        success: function(data) {
+            var code = coding(data, text);
+            $(elem).val(code);
+        }
+    });
+}
+
 $(document).ready(function() {
     
     // получение стартовой страницы
@@ -48,24 +72,19 @@ $(document).ready(function() {
     
     // дешифрование поля при фокусе
     $('body').on('focusin', '.js-crypt', function() {
-        var key = $('.js-keyword').val();
         var text = $(this).val();
-        if (key == '') {
-            alert('key is empty');
-            $(this).blur();
-        } else if (text != '') {
-            var decode = decoding(key, text);
-            $(this).val(decode);
+        var elem = $(this);
+        if (text != '') {
+            focusInDecrypt(elem, text);
         }
     });
     
     // шифрование поля при потере фокуса
     $('body').on('focusout', '.js-crypt', function() {
-        var key = $('.js-keyword').val();
         var text = $(this).val();
-        if (key != '' && text != '') {
-            var code = coding(key, text);
-            $(this).val(code);
+        var elem = $(this);
+        if (text != '') {
+            focusOutCrypt(elem, text);
         }
     });
     

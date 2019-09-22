@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if($_SESSION['admin']){
+if($_SESSION['admin'] && $_SESSION['decryptor']){
 	header("Location: /admin.php");
 	exit;
 }
@@ -18,14 +18,17 @@ mysqli_close($connect);
 
 $admin = $result['login'];
 $pass = $result['pass'];
+$decryptor = $result['decryptor'];
 
 if ($_POST['submit']) {
 	if ($_POST['user'] == $admin && md5($sault . md5($_POST['pass'])) == $pass) {
 		$_SESSION['admin'] = $admin;
+		$_SESSION['decryptor'] = $decryptor;
 		header("Location: /admin.php");
 		exit;
 	} else echo '<p>Логин или пароль неверны!</p>';
 }
+session_write_close();
 ?>
 
 <!DOCTYPE html>
