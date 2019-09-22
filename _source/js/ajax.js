@@ -53,6 +53,23 @@ function focusOutCrypt(elem, text) {
     });
 }
 
+// функция добавления каталога
+function addGroup(name, title, path) {
+    var group = {
+        name : name,
+        title : title,
+        path : path
+    };
+    $.ajax({
+        type: 'POST',
+        url: '/core/fn/add_group.php',
+        data: group,
+        success: function(data) {
+            $('.js-add-group-modal').html(data);
+        }
+    });
+}
+
 $(document).ready(function() {
     
     // получение стартовой страницы
@@ -88,6 +105,15 @@ $(document).ready(function() {
         }
     });
     
+    // добавление группы
+    $('body').on('click', '.js-add-group', function() {
+        var path = $(this).closest('.js-add-group-modal').children('input[name="path"]').val();
+        var title = $(this).closest('.js-add-group-modal').children('input[name="title"]').val();
+        var name = translit(title);
+        if (path != '' && name != '') {
+            addGroup(name, title, path);
+        }
+    });
     
     // $('body').on('click', '.js-save', function() {
     //     var text = $('.js-textarea').val();

@@ -14,6 +14,7 @@ if ($_POST['submit']) {
         if ($result) {
             echo '<p>Пароль изменен</p>';
             unset($_SESSION['admin']);
+            unset($_SESSION['decryptor']);
             session_destroy();
         }
         mysqli_close($connect);

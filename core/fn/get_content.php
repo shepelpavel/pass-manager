@@ -11,7 +11,7 @@ if ($folder) {
 	$folder = $folder->fetch_assoc();
 }
 if ($_POST['path'] == '/') {
-	$folder['name'] = 'home';
+	$folder['name'] = '/';
 	$folder['title'] = 'HOME';
 }
 
@@ -34,9 +34,11 @@ mysqli_close($connect);
 ?>
 
 <h2><?= $folder['title'] ?></h2>
-<?php if ($folder['name'] != 'home') { ?>
+<?php if ($folder['name'] != '/') { ?>
+	<p class="link js-tree-path" target="/">ГЛАВНАЯ</p>
 	<p class="link js-tree-path" target="<?= $folder['path'] ?>">Назад</p>
 <?php } ?>
+<?php if (!empty($folders_res) || !empty($pass_res)) { ?>
 <p>
 	<ul>
 		<?php foreach ($folders_res as $key => $value) { ?>
@@ -47,3 +49,12 @@ mysqli_close($connect);
 		<?php } ?>
 	</ul>
 </p>
+<?php } else { ?>
+	<p>Каталог пуст</p>
+<?php } ?>
+
+<div class="modal js-add-group-modal">
+	<input type="hidden" name="path" value="<?= $folder['name'] ?>">
+	<input type="text" name="title" value="">
+	<div class="link js-add-group">Add Group</div>
+</div>

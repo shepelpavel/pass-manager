@@ -10,6 +10,6 @@
 // }
 // 
 // mysqli_close($connect);
-echo $_POST['name'];
-return;
+echo 'name - '.$_POST['name'].', title - '.$_POST['title'].', path - '.$_POST['path'];
 ?>
+<p class="link js-tree-path" target="<?= $_POST['path'] ?>">Ok</p>
