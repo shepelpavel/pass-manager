@@ -13,6 +13,7 @@ if ($folder) {
 if ($_POST['path'] == '/') {
 	$folder['name'] = '/';
 	$folder['title'] = 'HOME';
+	$folder['path'] = '/';
 }
 
 // получение каталогов внутри выбранного каталога
@@ -30,7 +31,33 @@ $pass_res = array();
 while ($pass_arr = $pass->fetch_assoc()) {
 	$pass_res[] = $pass_arr;
 }
+
+$fldr = $folder['name'];
+$pth = $folder['path'];
+$bread[] = [
+	'name' => $folder['name'],
+	'title' => $folder['title'],
+	'path' => $folder['path'],
+];
+while ($fldr != '/' && $pth != '/') {
+	$query_fldr = 'SELECT * FROM `groups` WHERE `name` = "'.$pth.'"';
+	$response = mysqli_query($connect, $query_fldr) or die("Error " . mysqli_error($connect));
+	if ($response) {
+		$response = $response->fetch_assoc();
+	}
+	$fldr = $response['name'];
+	$pth = $response['path'];
+	$bread[] = $response;
+}
+
 mysqli_close($connect);
+
+$breadcrumbs = '';
+foreach ($bread as $crumb) {
+	if ($crumb['name'] != '/') {
+		$breadcrumbs = ' > ' . $crumb['title'] . $breadcrumbs;
+	}
+}
 
 session_start();
 $_SESSION['folder'] = [
@@ -43,6 +70,7 @@ session_write_close();
 <?php include $_SERVER['DOCUMENT_ROOT'].'/chunks/block/menu.php'; ?>
 
 <h2><?= $folder['title'] ?></h2>
+<?= $folder['name'] != '/' ? 'HOME ' . $breadcrumbs : '' ?>
 <?php if ($folder['name'] != '/') { ?>
 <p class="link js-tree-path" target="/">ГЛАВНАЯ</p>
 <p class="link js-tree-path" target="<?= $folder['path'] ?>">Назад</p>
