@@ -1,0 +1,37 @@
+body {
+    background-color: #666666;
+}
+
+.link {
+    cursor: pointer;
+    transition: .3s;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.page {
+    display: flex;
+
+    .tree {
+        width: 30%;
+    }
+
+    .content {
+        width: 70%;
+    }
+}
+
+.btn {
+    max-width: 66px;
+    background-color: #cccccc;
+    text-align: center;
+    padding: 6px;
+    transition: .3s;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #666666;
+    }
+}
