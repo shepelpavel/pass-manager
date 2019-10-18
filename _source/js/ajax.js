@@ -5,12 +5,12 @@ function getContent(path) {
         url: '/core/fn/get_content.php',
         data: "path=" + path,
         success: function (data) {
-            $('#content').animate({
+            $('#page').animate({
                 opacity: 0
             }, 300, function () {
-                $('#content').html(data);
+                $('#page').html(data);
             });
-            $('#content').animate({
+            $('#page').animate({
                 opacity: 1
             }, 300);
         }
@@ -24,12 +24,12 @@ function getPass(name) {
         url: '/core/fn/get_pass.php',
         data: "name=" + name,
         success: function (data) {
-            $('#content').animate({
+            $('#page').animate({
                 opacity: 0
             }, 300, function () {
-                $('#content').html(data);
+                $('#page').html(data);
             });
-            $('#content').animate({
+            $('#page').animate({
                 opacity: 1
             }, 300);
         }

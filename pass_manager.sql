@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost:3306
--- Время создания: Сен 23 2019 г., 01:30
+-- Время создания: Окт 19 2019 г., 01:14
 -- Версия сервера: 5.7.27-0ubuntu0.18.04.1
--- Версия PHP: 5.6.40-12+ubuntu18.04.1+deb.sury.org+1
+-- Версия PHP: 7.2.23-1+ubuntu18.04.1+deb.sury.org+1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,27 +19,6 @@ SET time_zone = "+00:00";
 --
 -- База данных: `pass_manager`
 --
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `auth`
---
-
-CREATE TABLE `auth` (
-  `id` int(10) NOT NULL,
-  `login` varchar(100) NOT NULL,
-  `pass` varchar(255) NOT NULL,
-  `decryptor` varchar(255) NOT NULL,
-  `fail` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `auth`
---
-
-INSERT INTO `auth` (`id`, `login`, `pass`, `decryptor`, `fail`) VALUES
-(1, 'shepel', 'd74bb1b7d944f940882fa62ca621b97d', '038c3e823c5952aa33ac5f561b9329dc', 0);
 
 -- --------------------------------------------------------
 
@@ -61,7 +40,28 @@ CREATE TABLE `groups` (
 INSERT INTO `groups` (`id`, `name`, `title`, `path`) VALUES
 (1, 'folder_1', 'Folder 1', '/'),
 (2, 'sub_1', 'Sub 1', 'folder_1'),
-(3, 'folder_2', 'Folder 2', '/');
+(3, 'folder_2', 'Folder 2', '/'),
+(5, 'oleg', 'олег', 'folder_2'),
+(6, 'ivan', 'иван', 'oleg');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `key`
+--
+
+CREATE TABLE `key` (
+  `id` int(10) NOT NULL,
+  `user` varchar(100) NOT NULL,
+  `key` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `key`
+--
+
+INSERT INTO `key` (`id`, `user`, `key`) VALUES
+(1, 'shepel', '038c3e823c5952aa33ac5f561b9329dc');
 
 -- --------------------------------------------------------
 
@@ -93,17 +93,17 @@ INSERT INTO `passwd` (`id`, `name`, `title`, `path`, `login`, `pass`, `link`, `n
 --
 
 --
--- Индексы таблицы `auth`
---
-ALTER TABLE `auth`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `login` (`login`);
-
---
 -- Индексы таблицы `groups`
 --
 ALTER TABLE `groups`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `key`
+--
+ALTER TABLE `key`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `login` (`user`);
 
 --
 -- Индексы таблицы `passwd`
@@ -116,15 +116,15 @@ ALTER TABLE `passwd`
 --
 
 --
--- AUTO_INCREMENT для таблицы `auth`
---
-ALTER TABLE `auth`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
 -- AUTO_INCREMENT для таблицы `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT для таблицы `key`
+--
+ALTER TABLE `key`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT для таблицы `passwd`
 --

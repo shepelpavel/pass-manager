@@ -3,7 +3,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/core/config.php';
 
 // получение страницы содержимого каталога
 $connect = mysqli_connect($host, $user, $password, $database) or die("Error " . mysqli_error($connect));
-
+mysqli_set_charset($connect, "utf8");
 // получение выбранного каталога
 $query_folder = 'SELECT * FROM `groups` WHERE `name` = "'.$_POST['path'].'"';
 $folder = mysqli_query($connect, $query_folder) or die("Error " . mysqli_error($connect));
@@ -31,30 +31,37 @@ while ($pass_arr = $pass->fetch_assoc()) {
 	$pass_res[] = $pass_arr;
 }
 mysqli_close($connect);
+
+session_start();
+$_SESSION['folder'] = [
+	'name' => $folder['name'],
+	'title' => $folder['title'],
+];
+session_write_close();
 ?>
+
+<?php include $_SERVER['DOCUMENT_ROOT'].'/chunks/block/menu.php'; ?>
 
 <h2><?= $folder['title'] ?></h2>
 <?php if ($folder['name'] != '/') { ?>
-	<p class="link js-tree-path" target="/">ГЛАВНАЯ</p>
-	<p class="link js-tree-path" target="<?= $folder['path'] ?>">Назад</p>
+<p class="link js-tree-path" target="/">ГЛАВНАЯ</p>
+<p class="link js-tree-path" target="<?= $folder['path'] ?>">Назад</p>
 <?php } ?>
 <?php if (!empty($folders_res) || !empty($pass_res)) { ?>
 <p>
 	<ul>
 		<?php foreach ($folders_res as $key => $value) { ?>
-			<li class="link js-tree-path" target="<?= $value['name'] ?>"><?= $value['title'] ?></li>
+		<li class="link js-tree-path" target="<?= $value['name'] ?>"><?= $value['title'] ?></li>
 		<?php } ?>
 		<?php foreach ($pass_res as $key => $value) { ?>
-			<li class="link js-pass-title" target="<?= $value['name'] ?>"><?= $value['title'] ?></li>
+		<li class="link js-pass-title" target="<?= $value['name'] ?>"><?= $value['title'] ?></li>
 		<?php } ?>
 	</ul>
 </p>
 <?php } else { ?>
-	<p>Каталог пуст</p>
+<p>Каталог пуст</p>
 <?php } ?>
 
-<div class="modal js-add-group-modal">
-	<input type="hidden" name="path" value="<?= $folder['name'] ?>">
-	<input type="text" name="title" value="">
-	<div class="link js-add-group">Add Group</div>
+<div class="modals">
+	<?php include $_SERVER['DOCUMENT_ROOT'].'/chunks/block/modals.php'; ?>
 </div>
