@@ -12,10 +12,17 @@ body {
 }
 
 .page {
-    display: flex;
 
-    .content {
-        width: 100%;
+    .tree {
+        &__item {
+            position: relative;
+
+            &_del {
+                position: absolute;
+                top: 0;
+                right: 0;
+            }
+        }
     }
 }
 

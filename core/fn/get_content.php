@@ -39,7 +39,8 @@ $bread[] = [
 	'title' => $folder['title'],
 	'path' => $folder['path'],
 ];
-while ($fldr != '/' && $pth != '/') {
+while ($fldr != '/' && $pth != '/' && $i < 10) {
+	$i++;
 	$query_fldr = 'SELECT * FROM `groups` WHERE `name` = "'.$pth.'"';
 	$response = mysqli_query($connect, $query_fldr) or die("Error " . mysqli_error($connect));
 	if ($response) {
@@ -69,7 +70,7 @@ session_write_close();
 
 <?php include $_SERVER['DOCUMENT_ROOT'].'/chunks/block/menu.php'; ?>
 
-<h2><?= $folder['title'] ?></h2>
+<h2 class="js-title" this-path="<?= $folder['name'] ?>"><?= $folder['title'] ?></h2>
 <?= $folder['name'] != '/' ? 'HOME ' . $breadcrumbs : '' ?>
 <?php if ($folder['name'] != '/') { ?>
 <p class="link js-tree-path" target="/">ГЛАВНАЯ</p>
@@ -79,10 +80,20 @@ session_write_close();
 <p>
 	<ul>
 		<?php foreach ($folders_res as $key => $value) { ?>
-		<li class="link js-tree-path" target="<?= $value['name'] ?>"><?= $value['title'] ?></li>
+		<li class="tree__item js-tree-item">
+			<div class="link js-tree-path js-tree-name" target="<?= $value['name'] ?>" type="groups">
+				<?= $value['title'] ?>
+			</div>
+			<div class="link tree__item_del js-tree-del">del</div>
+		</li>
 		<?php } ?>
 		<?php foreach ($pass_res as $key => $value) { ?>
-		<li class="link js-pass-title" target="<?= $value['name'] ?>"><?= $value['title'] ?></li>
+		<li class="tree__item js-tree-item">
+			<div class="link js-pass-title js-tree-name" target="<?= $value['name'] ?>" type="passwd">
+				<?= $value['title'] ?>
+			</div>
+			<div class="link tree__item_del js-tree-del">del</div>
+		</li>
 		<?php } ?>
 	</ul>
 </p>
