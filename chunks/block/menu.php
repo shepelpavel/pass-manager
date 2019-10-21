@@ -1,5 +1,5 @@
-<p style="text-align: right;">
-    <a href="/change-key.php">Изменить ключ шифрования</a>
-    <span> | </span>
-    <a href="/change-pass.php">Изменить пароль</a>
-</p>
+<div style="text-align: right;">
+    <div class="js-change-key">Change key</div>
+    <div class="link js-modal-button" target="add-group">Add folder</div>
+    <div class="js-add-pass">Add pass</div>
+</div>

@@ -84,7 +84,7 @@ session_write_close();
 			<div class="link js-tree-path js-tree-name" target="<?= $value['name'] ?>" type="groups">
 				<?= $value['title'] ?>
 			</div>
-			<div class="link tree__item_del js-tree-del">del</div>
+			<div class="btn tree__item_del js-tree-del">del</div>
 		</li>
 		<?php } ?>
 		<?php foreach ($pass_res as $key => $value) { ?>
@@ -92,7 +92,7 @@ session_write_close();
 			<div class="link js-pass-title js-tree-name" target="<?= $value['name'] ?>" type="passwd">
 				<?= $value['title'] ?>
 			</div>
-			<div class="link tree__item_del js-tree-del">del</div>
+			<div class="btn tree__item_del js-tree-del">del</div>
 		</li>
 		<?php } ?>
 	</ul>
@@ -101,6 +101,6 @@ session_write_close();
 <p>Каталог пуст</p>
 <?php } ?>
 
-<div class="modals">
+<div class="modals js-modal-close">
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/chunks/block/modals.php'; ?>
 </div>
