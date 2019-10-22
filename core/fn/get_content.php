@@ -100,7 +100,3 @@ session_write_close();
 <?php } else { ?>
 <p>Каталог пуст</p>
 <?php } ?>
-
-<div class="modals js-modal-close">
-	<?php include $_SERVER['DOCUMENT_ROOT'].'/chunks/block/modals.php'; ?>
-</div>
