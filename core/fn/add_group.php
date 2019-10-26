@@ -11,7 +11,7 @@ if ($result_check) {
 if (!empty($result_check)) {
     echo 'folder exist';
 } else {
-    $query = "INSERT INTO groups (`name`,`title`,`path`) values('".$_POST['name']."','".$_POST['title']."','".$_POST['path']."')";
+    $query = "INSERT INTO groups (`name`,`title`,`path`,`fullpath`) values('".$_POST['name']."','".$_POST['title']."','".$_POST['path']."','".$_POST['fullpath']."')";
     $result = mysqli_query($connect, $query) or die("Error " . mysqli_error($connect));
     if ($result) {
         echo 'Ok';

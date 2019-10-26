@@ -37,11 +37,12 @@ function getPass(name) {
 }
 
 // функция добавления каталога
-function addGroup(name, title, path) {
+function addGroup(name, title, path, fullpath) {
     var group = {
         name: name,
         title: title,
-        path: path
+        path: path,
+        fullpath: fullpath+'/'+name
     };
     $.ajax({
         type: 'POST',
@@ -121,10 +122,11 @@ $(document).ready(function () {
     // добавление группы
     $('body').on('click', '.js-add-group', function () {
         var path = $('.js-title').attr('this-path');
+        var fullpath = $('.js-title').attr('this-fullpath');
         var title = prompt("Enter folder name");
         var name = translit(title);
         if (path != '' && path != null && name != '' && name != null) {
-            addGroup(name, title, path);
+            addGroup(name, title, path, fullpath);
         } else {
             alert('error');
         }

@@ -4,6 +4,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/core/config.php';
 // получение страницы содержимого каталога
 $connect = mysqli_connect($host, $user, $password, $database) or die("Error " . mysqli_error($connect));
 mysqli_set_charset($connect, "utf8");
+
 // получение выбранного каталога
 $query_folder = 'SELECT * FROM `groups` WHERE `name` = "'.$_POST['path'].'"';
 $folder = mysqli_query($connect, $query_folder) or die("Error " . mysqli_error($connect));
@@ -14,10 +15,11 @@ if ($_POST['path'] == '/') {
 	$folder['name'] = '/';
 	$folder['title'] = 'HOME';
 	$folder['path'] = '/';
+	$folder['fullpath'] = '/';
 }
 
 // получение каталогов внутри выбранного каталога
-$query_folders = 'SELECT * FROM `groups` WHERE `path` = "'.$_POST['path'].'"';
+$query_folders = 'SELECT * FROM `groups` WHERE `path` = "'.$_POST['path'].'" ORDER BY `title` ASC';
 $folders = mysqli_query($connect, $query_folders) or die("Error " . mysqli_error($connect));
 $folders_res = array();
 while ($folders_arr = $folders->fetch_assoc()) {
@@ -25,13 +27,14 @@ while ($folders_arr = $folders->fetch_assoc()) {
 }
 
 // получение паролей внутри выбранного каталога
-$query_pass = 'SELECT * FROM `passwd` WHERE `path` = "'.$_POST['path'].'"';
+$query_pass = 'SELECT * FROM `passwd` WHERE `path` = "'.$_POST['path'].'" ORDER BY `title` ASC';
 $pass = mysqli_query($connect, $query_pass) or die("Error " . mysqli_error($connect));
 $pass_res = array();
 while ($pass_arr = $pass->fetch_assoc()) {
 	$pass_res[] = $pass_arr;
 }
 
+// получение хлебных крошек
 $fldr = $folder['name'];
 $pth = $folder['path'];
 $bread[] = [
@@ -64,13 +67,15 @@ session_start();
 $_SESSION['folder'] = [
 	'name' => $folder['name'],
 	'title' => $folder['title'],
+	'path' => $folder['path'],
+	'fullpath' => $folder['fullpath'],
 ];
 session_write_close();
 ?>
 
 <?php include $_SERVER['DOCUMENT_ROOT'].'/chunks/block/menu.php'; ?>
 
-<h2 class="js-title" this-path="<?= $folder['name'] ?>"><?= $folder['title'] ?></h2>
+<h2 class="js-title" this-path="<?= $folder['name'] ?>" this-fullpath="<?= $folder['fullpath'] ?>"><?= $folder['title'] ?></h2>
 <?= $folder['name'] != '/' ? 'HOME ' . $breadcrumbs : '' ?>
 <?php if ($folder['name'] != '/') { ?>
 <p class="link js-tree-path" target="/">ГЛАВНАЯ</p>
