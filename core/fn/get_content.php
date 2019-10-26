@@ -56,6 +56,7 @@ while ($fldr != '/' && $pth != '/' && $i < 10) {
 
 mysqli_close($connect);
 
+// формирование хлебных крошек
 $breadcrumbs = '';
 foreach ($bread as $crumb) {
 	if ($crumb['name'] != '/') {
@@ -63,6 +64,7 @@ foreach ($bread as $crumb) {
 	}
 }
 
+// запись в сессию текущего каталога
 session_start();
 $_SESSION['folder'] = [
 	'name' => $folder['name'],

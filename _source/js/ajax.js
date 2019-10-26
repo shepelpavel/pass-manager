@@ -42,7 +42,7 @@ function addGroup(name, title, path, fullpath) {
         name: name,
         title: title,
         path: path,
-        fullpath: fullpath+'/'+name
+        fullpath: fullpath + '/' + name
     };
     $.ajax({
         type: 'POST',
@@ -55,15 +55,10 @@ function addGroup(name, title, path, fullpath) {
 }
 
 // функция получения страницы добавления пароля
-function getAddPassPage(path, fullpath) {
-    var group = {
-        path: path,
-        fullpath: fullpath
-    };
+function getAddPassPage() {
     $.ajax({
         type: 'POST',
         url: '/core/fn/add_pass_page.php',
-        data: group,
         success: function (data) {
             $('#page').animate({
                 opacity: 0
@@ -93,15 +88,8 @@ function saveNewPass(path, fullpath, title, name, link, login, pass, note) {
         type: 'POST',
         url: '/core/fn/add_new_pass.php',
         data: group,
-        success: function (data) {
-            $('#page').animate({
-                opacity: 0
-            }, 300, function () {
-                $('#page').html(data);
-            });
-            $('#page').animate({
-                opacity: 1
-            }, 300);
+        success: function () {
+            getContent(path);
         }
     });
 }
@@ -170,7 +158,7 @@ $(document).ready(function () {
             alert('error');
         }
     });
-    
+
     // добавление группы
     $('body').on('click', '.js-add-group', function () {
         var path = $('.js-title').attr('this-path');
@@ -183,18 +171,12 @@ $(document).ready(function () {
             alert('error');
         }
     });
-    
+
     // получение страницы добавления пароля
     $('body').on('click', '.js-add-pass', function () {
-        var path = $('.js-title').attr('this-path');
-        var fullpath = $('.js-title').attr('this-fullpath');
-        if (path != '' && path != null && fullpath != '' && fullpath != null) {
-            getAddPassPage(path, fullpath);
-        } else {
-            alert('error');
-        }
+        getAddPassPage();
     });
-    
+
     // сохранение нового пароля
     $('body').on('click', '.js-newpass-save', function () {
         var path = $('.js-title').attr('this-path');
