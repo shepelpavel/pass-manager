@@ -54,6 +54,58 @@ function addGroup(name, title, path, fullpath) {
     });
 }
 
+// функция получения страницы добавления пароля
+function getAddPassPage(path, fullpath) {
+    var group = {
+        path: path,
+        fullpath: fullpath
+    };
+    $.ajax({
+        type: 'POST',
+        url: '/core/fn/add_pass_page.php',
+        data: group,
+        success: function (data) {
+            $('#page').animate({
+                opacity: 0
+            }, 300, function () {
+                $('#page').html(data);
+            });
+            $('#page').animate({
+                opacity: 1
+            }, 300);
+        }
+    });
+}
+
+// функция сохранения нового пароля
+function saveNewPass(path, fullpath, title, name, link, login, pass, note) {
+    var group = {
+        path: path,
+        fullpath: fullpath,
+        title: title,
+        name: name,
+        link: link,
+        login: login,
+        pass: pass,
+        note: note
+    };
+    $.ajax({
+        type: 'POST',
+        url: '/core/fn/add_new_pass.php',
+        data: group,
+        success: function (data) {
+            $('#page').animate({
+                opacity: 0
+            }, 300, function () {
+                $('#page').html(data);
+            });
+            $('#page').animate({
+                opacity: 1
+            }, 300);
+        }
+    });
+}
+
 // функция удаления айтема
 function delItem(name, this_path, type) {
     var item = {
@@ -118,15 +170,43 @@ $(document).ready(function () {
             alert('error');
         }
     });
-
+    
     // добавление группы
     $('body').on('click', '.js-add-group', function () {
         var path = $('.js-title').attr('this-path');
         var fullpath = $('.js-title').attr('this-fullpath');
         var title = prompt("Enter folder name");
         var name = translit(title);
-        if (path != '' && path != null && name != '' && name != null) {
+        if (path != '' && path != null && fullpath != '' && fullpath != null && name != '' && name != null) {
             addGroup(name, title, path, fullpath);
+        } else {
+            alert('error');
+        }
+    });
+    
+    // получение страницы добавления пароля
+    $('body').on('click', '.js-add-pass', function () {
+        var path = $('.js-title').attr('this-path');
+        var fullpath = $('.js-title').attr('this-fullpath');
+        if (path != '' && path != null && fullpath != '' && fullpath != null) {
+            getAddPassPage(path, fullpath);
+        } else {
+            alert('error');
+        }
+    });
+    
+    // сохранение нового пароля
+    $('body').on('click', '.js-newpass-save', function () {
+        var path = $('.js-title').attr('this-path');
+        var fullpath = $('.js-title').attr('this-fullpath');
+        var title = $('.js-input-title').val();
+        var name = translit(title);
+        var link = $('.js-input-link').val();
+        var login = $('.js-input-login').val();
+        var pass = $('.js-input-pass').val();
+        var note = $('.js-input-note').val();
+        if (path != '' && path != null && fullpath != '' && fullpath != null && name != '' && name != null) {
+            saveNewPass(path, fullpath, title, name, link, login, pass, note);
         } else {
             alert('error');
         }

@@ -3,7 +3,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/core/config.php';
 $connect = mysqli_connect($host, $user, $password, $database) or die("Error " . mysqli_error($connect));
 mysqli_set_charset($connect, "utf8");
 
-$query_check = 'SELECT * FROM `groups` WHERE `name` = "'.$_POST['name'].'" AND `path` = "'.$_POST['path'].'"';
+$query_check = 'SELECT * FROM `groups` WHERE `name` = "'.$_POST['name'].'"';
 $result_check = mysqli_query($connect, $query_check) or die("Error " . mysqli_error($connect));
 if ($result_check) {
     $result_check = $result_check->fetch_assoc();
