@@ -118,10 +118,11 @@ function savePass(path, fullpath, title, name, link, login, pass, note, oldname)
 }
 
 // функция удаления айтема
-function delItem(name, this_path, type) {
+function delItem(name, this_path, type, fullpath) {
     var item = {
         name: name,
-        type: type
+        type: type,
+        fullpath: fullpath
     };
     $.ajax({
         type: 'POST',
@@ -246,9 +247,11 @@ $(document).ready(function () {
             var target_name = $(tree_name).attr('target');
             var target_type = $(tree_name).attr('type');
             var this_path = $('.js-title').attr('this-path');
+            var fullpath = $('.js-title').attr('this-fullpath');
+            alert(fullpath);
             var types = ['groups', 'passwd'];
             if (target_name != '' && target_name != null && this_path != '' && this_path != null && $.inArray(target_type, types) >= 0) {
-                delItem(target_name, this_path, target_type);
+                delItem(target_name, this_path, target_type, fullpath);
             } else {
                 alert('error');
             }

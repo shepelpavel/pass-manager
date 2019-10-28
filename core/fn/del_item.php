@@ -9,7 +9,7 @@ if ($_POST['type'] == 'groups') {
     $query_pass = 'DELETE FROM `passwd` WHERE `fullpath` like "%'.$_POST['name'].'%"';
     $result_pass = mysqli_query($connect, $query_pass) or die("Error " . mysqli_error($connect));
 } elseif ($_POST['type'] == 'passwd') {
-    $query = 'DELETE FROM `passwd` WHERE `name` = "'.$_POST['name'].'"';
+    $query = 'DELETE FROM `passwd` WHERE `name` = "'.$_POST['name'].'" AND `fullpath` = "'.$_POST['fullpath'].'"';
     $result = mysqli_query($connect, $query) or die("Error " . mysqli_error($connect));
 } else {
     return;
