@@ -60,10 +60,28 @@ mysqli_close($connect);
 
 // формирование хлебных крошек
 $breadcrumbs = '';
+$i = 0;
 foreach ($bread as $crumb) {
 	if ($crumb['name'] != 'HOME') {
-		$breadcrumbs = ' > ' . $crumb['title'] . $breadcrumbs;
+		if ($i == 0) { 
+			$breadcrumbs = '
+			<div> > </div>
+			<div>
+			' . $crumb['title'] . '
+			</div>
+			' . $breadcrumbs;
+		} else {
+			$breadcrumbs = '
+			<div> > </div>
+			<div 
+				class="link js-tree-path"
+				target="' . $crumb['name'] . '">
+			' . $crumb['title'] . '
+			</div>
+			' . $breadcrumbs;
+		}
 	}
+	$i++;
 }
 
 // запись в сессию текущего каталога
@@ -81,7 +99,7 @@ session_write_close();
 
 <h2 class="js-title" this-path="<?= $folder['name'] ?>" this-fullpath="<?= $folder['fullpath'] ?>">
 	<?= $folder['title'] ?></h2>
-<?= $folder['name'] != 'HOME' ? 'HOME ' . $breadcrumbs : '' ?>
+<?= $folder['name'] != 'HOME' ? '<div class="link js-tree-path" target="HOME">HOME</div>' . $breadcrumbs : '' ?>
 <?php if ($folder['name'] != 'HOME') { ?>
 <p class="link js-tree-path" target="/">ГЛАВНАЯ</p>
 <p class="link js-tree-path" target="<?= $folder['path'] ?>">Назад</p>
