@@ -64,21 +64,10 @@ $i = 0;
 foreach ($bread as $crumb) {
 	if ($crumb['name'] != 'HOME') {
 		if ($i == 0) { 
-			$breadcrumbs = '
-			<div> > </div>
-			<div>
-			' . $crumb['title'] . '
-			</div>
-			' . $breadcrumbs;
+			$breadcrumbs = '<div> > </div><div>'.$crumb['title'].'</div>'.$breadcrumbs;
 		} else {
-			$breadcrumbs = '
-			<div> > </div>
-			<div 
-				class="link js-tree-path"
-				target="' . $crumb['name'] . '">
-			' . $crumb['title'] . '
-			</div>
-			' . $breadcrumbs;
+			$breadcrumbs = '<div> > </div><div class="link js-tree-path" target="'.$crumb['name'].'">
+			'.$crumb['title'].'</div>'.$breadcrumbs;
 		}
 	}
 	$i++;
