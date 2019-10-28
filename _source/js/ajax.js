@@ -181,7 +181,7 @@ function focusOutCrypt(elem, key) {
 $(document).ready(function () {
 
     // получение стартовой страницы
-    getContent('/');
+    getContent('HOME');
 
     // формирование страницы каталога
     $('body').on('click', '.js-tree-path', function () {

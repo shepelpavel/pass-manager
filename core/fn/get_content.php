@@ -13,11 +13,11 @@ $folder = mysqli_query($connect, $query_folder) or die("error");
 if ($folder) {
 	$folder = $folder->fetch_assoc();
 }
-if ($_POST['path'] == '/') {
-	$folder['name'] = '/';
+if ($_POST['path'] == 'HOME') {
+	$folder['name'] = 'HOME';
 	$folder['title'] = 'HOME';
-	$folder['path'] = '/';
-	$folder['fullpath'] = '/';
+	$folder['path'] = 'HOME';
+	$folder['fullpath'] = 'HOME';
 }
 
 // получение каталогов внутри выбранного каталога
@@ -44,7 +44,7 @@ $bread[] = [
 	'title' => $folder['title'],
 	'path' => $folder['path'],
 ];
-while ($fldr != '/' && $pth != '/' && $i < 10) {
+while ($fldr != 'HOME' && $pth != 'HOME' && $i < 10) {
 	$i++;
 	$query_fldr = 'SELECT * FROM `groups` WHERE `name` = "'.$pth.'"';
 	$response = mysqli_query($connect, $query_fldr) or die("error");
@@ -61,7 +61,7 @@ mysqli_close($connect);
 // формирование хлебных крошек
 $breadcrumbs = '';
 foreach ($bread as $crumb) {
-	if ($crumb['name'] != '/') {
+	if ($crumb['name'] != 'HOME') {
 		$breadcrumbs = ' > ' . $crumb['title'] . $breadcrumbs;
 	}
 }
@@ -81,8 +81,8 @@ session_write_close();
 
 <h2 class="js-title" this-path="<?= $folder['name'] ?>" this-fullpath="<?= $folder['fullpath'] ?>">
 	<?= $folder['title'] ?></h2>
-<?= $folder['name'] != '/' ? 'HOME ' . $breadcrumbs : '' ?>
-<?php if ($folder['name'] != '/') { ?>
+<?= $folder['name'] != 'HOME' ? 'HOME ' . $breadcrumbs : '' ?>
+<?php if ($folder['name'] != 'HOME') { ?>
 <p class="link js-tree-path" target="/">ГЛАВНАЯ</p>
 <p class="link js-tree-path" target="<?= $folder['path'] ?>">Назад</p>
 <?php } ?>
