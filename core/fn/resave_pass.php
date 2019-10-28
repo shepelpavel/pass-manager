@@ -2,7 +2,7 @@
 include $_SERVER['DOCUMENT_ROOT'].'/core/config.php';
 
 $connect = mysqli_connect($host, $user, $password, $database)
-    or die("Error " . mysqli_error($connect));
+    or die("error");
 
 mysqli_set_charset($connect, "utf8");
 
@@ -13,7 +13,7 @@ $query_del = 'DELETE FROM `passwd`
         `fullpath` = "'.$_POST['fullpath'].'"';
 
 $result_del = mysqli_query($connect, $query_del)
-    or die("Error " . mysqli_error($connect));
+    or die("error");
 
 if ($result_del) {
     $query = "INSERT INTO passwd (
@@ -29,11 +29,11 @@ if ($result_del) {
             '".$_POST['note']."'
             )";
     $result = mysqli_query($connect, $query) 
-        or die("Error " . mysqli_error($connect));
+        or die("error");
     if ($result) {
-        echo 'Ok';
+        echo 'ok';
     } else {
-        echo 'Error!';
+        echo 'error';
     }
 }
 

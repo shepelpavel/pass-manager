@@ -48,8 +48,14 @@ function addGroup(name, title, path, fullpath) {
         type: 'POST',
         url: '/core/fn/add_group.php',
         data: group,
-        success: function () {
-            getContent(path);
+        success: function (data) {
+            if (data == 'error') {
+                alert('Error!');
+            } else if (data == 'exist') {
+                alert('Folder exist!');
+            } else {
+                getContent(path);
+            }
         }
     });
 }
@@ -88,8 +94,14 @@ function saveNewPass(path, fullpath, title, name, link, login, pass, note) {
         type: 'POST',
         url: '/core/fn/add_new_pass.php',
         data: group,
-        success: function () {
-            getContent(path);
+        success: function (data) {
+            if (data == 'error') {
+                alert('Error!');
+            } else if (data == 'exist') {
+                alert('Password exist!');
+            } else {
+                getContent(path);
+            }
         }
     });
 }
@@ -111,8 +123,12 @@ function savePass(path, fullpath, title, name, link, login, pass, note, oldname)
         type: 'POST',
         url: '/core/fn/resave_pass.php',
         data: group,
-        success: function () {
-            getContent(path);
+        success: function (data) {
+            if (data == 'error') {
+                alert('Error!');
+            } else {
+                getContent(path);
+            }
         }
     });
 }
@@ -128,8 +144,12 @@ function delItem(name, path, type, fullpath) {
         type: 'POST',
         url: '/core/fn/del_item.php',
         data: item,
-        success: function () {
-            getContent(path);
+        success: function (data) {
+            if (data == 'error') {
+                alert('Error!');
+            } else {
+                getContent(path);
+            }
         }
     });
 }
@@ -166,7 +186,7 @@ $(document).ready(function () {
     // формирование страницы каталога
     $('body').on('click', '.js-tree-path', function () {
         var target_path = $(this).attr('target');
-        
+
         if (target_path != '' && target_path != null) {
             getContent(target_path);
         } else {

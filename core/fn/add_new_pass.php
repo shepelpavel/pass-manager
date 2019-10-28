@@ -2,7 +2,7 @@
 include $_SERVER['DOCUMENT_ROOT'].'/core/config.php';
 
 $connect = mysqli_connect($host, $user, $password, $database)
-    or die("Error " . mysqli_error($connect));
+    or die("error");
 
 mysqli_set_charset($connect, "utf8");
 
@@ -11,14 +11,14 @@ $query_check = 'SELECT * FROM `passwd`
     AND `path` = "'.$_POST['path'].'"';
 
 $result_check = mysqli_query($connect, $query_check)
-    or die("Error " . mysqli_error($connect));
+    or die("error");
 
 if ($result_check) {
     $result_check = $result_check->fetch_assoc();
 }
 
 if (!empty($result_check)) {
-    echo 'pass exist';
+    echo 'exist';
 } else {
     $query = "INSERT INTO passwd (
         `name`,`title`,`path`,`fullpath`,`login`,`pass`,`link`,`note`
@@ -34,12 +34,12 @@ if (!empty($result_check)) {
             )";
 
     $result = mysqli_query($connect, $query) 
-        or die("Error " . mysqli_error($connect));
+        or die("error");
         
     if ($result) {
-        echo 'Ok';
+        echo 'ok';
     } else {
-        echo 'Error!';
+        echo 'error';
     }
 }
 

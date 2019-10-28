@@ -3,13 +3,13 @@ include $_SERVER['DOCUMENT_ROOT'].'/core/config.php';
 
 // получение страницы содержимого каталога
 $connect = mysqli_connect($host, $user, $password, $database)
-	or die("Error " . mysqli_error($connect));
+	or die("error");
 
 mysqli_set_charset($connect, "utf8");
 
 // получение выбранного каталога
 $query_folder = 'SELECT * FROM `groups` WHERE `name` = "'.$_POST['path'].'"';
-$folder = mysqli_query($connect, $query_folder) or die("Error " . mysqli_error($connect));
+$folder = mysqli_query($connect, $query_folder) or die("error");
 if ($folder) {
 	$folder = $folder->fetch_assoc();
 }
@@ -22,7 +22,7 @@ if ($_POST['path'] == '/') {
 
 // получение каталогов внутри выбранного каталога
 $query_folders = 'SELECT * FROM `groups` WHERE `path` = "'.$_POST['path'].'" ORDER BY `title` ASC';
-$folders = mysqli_query($connect, $query_folders) or die("Error " . mysqli_error($connect));
+$folders = mysqli_query($connect, $query_folders) or die("error");
 $folders_res = array();
 while ($folders_arr = $folders->fetch_assoc()) {
 	$folders_res[] = $folders_arr;
@@ -30,7 +30,7 @@ while ($folders_arr = $folders->fetch_assoc()) {
 
 // получение паролей внутри выбранного каталога
 $query_pass = 'SELECT * FROM `passwd` WHERE `path` = "'.$_POST['path'].'" ORDER BY `title` ASC';
-$pass = mysqli_query($connect, $query_pass) or die("Error " . mysqli_error($connect));
+$pass = mysqli_query($connect, $query_pass) or die("error");
 $pass_res = array();
 while ($pass_arr = $pass->fetch_assoc()) {
 	$pass_res[] = $pass_arr;
@@ -47,7 +47,7 @@ $bread[] = [
 while ($fldr != '/' && $pth != '/' && $i < 10) {
 	$i++;
 	$query_fldr = 'SELECT * FROM `groups` WHERE `name` = "'.$pth.'"';
-	$response = mysqli_query($connect, $query_fldr) or die("Error " . mysqli_error($connect));
+	$response = mysqli_query($connect, $query_fldr) or die("error");
 	if ($response) {
 		$response = $response->fetch_assoc();
 	}
