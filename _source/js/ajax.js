@@ -118,7 +118,7 @@ function savePass(path, fullpath, title, name, link, login, pass, note, oldname)
 }
 
 // функция удаления айтема
-function delItem(name, this_path, type, fullpath) {
+function delItem(name, path, type, fullpath) {
     var item = {
         name: name,
         type: type,
@@ -129,7 +129,7 @@ function delItem(name, this_path, type, fullpath) {
         url: '/core/fn/del_item.php',
         data: item,
         success: function () {
-            getContent(this_path);
+            getContent(path);
         }
     });
 }
@@ -166,6 +166,7 @@ $(document).ready(function () {
     // формирование страницы каталога
     $('body').on('click', '.js-tree-path', function () {
         var target_path = $(this).attr('target');
+        
         if (target_path != '' && target_path != null) {
             getContent(target_path);
         } else {
@@ -176,6 +177,7 @@ $(document).ready(function () {
     // получение страницы пароля
     $('body').on('click', '.js-pass-title', function () {
         var target_path = $(this).attr('target');
+
         if (target_path != '' && target_path != null) {
             getPass(target_path);
         } else {
@@ -189,7 +191,14 @@ $(document).ready(function () {
         var fullpath = $('.js-title').attr('this-fullpath');
         var title = prompt("Enter folder name");
         var name = translit(title);
-        if (path != '' && path != null && fullpath != '' && fullpath != null && name != '' && name != null) {
+
+        if (path != '' &&
+            path != null &&
+            fullpath != '' &&
+            fullpath != null &&
+            name != '' &&
+            name != null) {
+
             addGroup(name, title, path, fullpath);
         } else {
             alert('error');
@@ -211,7 +220,14 @@ $(document).ready(function () {
         var login = $('.js-input-login').val();
         var pass = $('.js-input-pass').val();
         var note = $('.js-input-note').val();
-        if (path != '' && path != null && fullpath != '' && fullpath != null && name != '' && name != null) {
+
+        if (path != '' &&
+            path != null &&
+            fullpath != '' &&
+            fullpath != null &&
+            name != '' &&
+            name != null) {
+
             saveNewPass(path, fullpath, title, name, link, login, pass, note);
         } else {
             alert('error');
@@ -221,6 +237,7 @@ $(document).ready(function () {
     // сохранение существующего пароля
     $('body').on('click', '.js-pass-save', function () {
         var u_confirm = confirm('Resave?');
+
         if (u_confirm) {
             var oldname = $('.js-title').attr('this-name');
             var path = $('.js-title').attr('this-path');
@@ -231,7 +248,15 @@ $(document).ready(function () {
             var login = $('.js-input-login').val();
             var pass = $('.js-input-pass').val();
             var note = $('.js-input-note').val();
-            if (path != '' && path != null && fullpath != '' && fullpath != null && name != '' && name != null && oldname != '' && oldname != null) {
+            if (path != '' &&
+                path != null &&
+                fullpath != '' &&
+                fullpath != null &&
+                name != '' &&
+                name != null &&
+                oldname != '' &&
+                oldname != null) {
+
                 savePass(path, fullpath, title, name, link, login, pass, note, oldname);
             } else {
                 alert('error');
@@ -242,15 +267,21 @@ $(document).ready(function () {
     // удаление айтема
     $('body').on('click', '.js-tree-del', function () {
         var u_confirm = confirm('Seriously?');
+
         if (u_confirm) {
             var tree_name = $(this).closest('.js-tree-item').find('.js-tree-name');
             var target_name = $(tree_name).attr('target');
             var target_type = $(tree_name).attr('type');
             var this_path = $('.js-title').attr('this-path');
             var fullpath = $('.js-title').attr('this-fullpath');
-            alert(fullpath);
             var types = ['groups', 'passwd'];
-            if (target_name != '' && target_name != null && this_path != '' && this_path != null && $.inArray(target_type, types) >= 0) {
+
+            if (target_name != '' &&
+                target_name != null &&
+                this_path != '' &&
+                this_path != null &&
+                $.inArray(target_type, types) >= 0) {
+
                 delItem(target_name, this_path, target_type, fullpath);
             } else {
                 alert('error');
@@ -262,6 +293,7 @@ $(document).ready(function () {
     $('body').on('focusin', '.js-crypt', function () {
         var text = $(this).val();
         var elem = $(this);
+
         if (text != '' && text != '') {
             focusInDecrypt(elem, text);
         }
@@ -271,6 +303,7 @@ $(document).ready(function () {
     $('body').on('focusout', '.js-crypt', function () {
         var text = $(this).val();
         var elem = $(this);
+
         if (text != '' && text != null) {
             focusOutCrypt(elem, text);
         }

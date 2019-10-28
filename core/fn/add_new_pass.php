@@ -32,8 +32,10 @@ if (!empty($result_check)) {
             '".$_POST['link']."',
             '".$_POST['note']."'
             )";
+
     $result = mysqli_query($connect, $query) 
         or die("Error " . mysqli_error($connect));
+        
     if ($result) {
         echo 'Ok';
     } else {

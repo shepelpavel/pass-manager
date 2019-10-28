@@ -2,17 +2,22 @@
 include $_SERVER['DOCUMENT_ROOT'].'/core/config.php';
 
 // получение массива значений полей пароля
-$connect = mysqli_connect($host, $user, $password, $database) or die("Error " . mysqli_error($connect));
+$connect = mysqli_connect($host, $user, $password, $database)
+	or die("Error " . mysqli_error($connect));
+
 mysqli_set_charset($connect, "utf8");
+
 $query_pass = 'SELECT * FROM `passwd` WHERE `name` = "'.$_POST['name'].'"';
 $pass = mysqli_query($connect, $query_pass) or die("Error " . mysqli_error($connect));
 if ($pass) {
 	$pass = $pass->fetch_assoc();
 }
+
 mysqli_close($connect);
 ?>
 
-<h2 class="js-title" this-path="<?= $pass['path'] ?>" this-fullpath="<?= $pass['fullpath'] ?>" this-name="<?= $pass['name'] ?>"><?= $pass['title'] ?></h2>
+<h2 class="js-title" this-path="<?= $pass['path'] ?>" this-fullpath="<?= $pass['fullpath'] ?>"
+	this-name="<?= $pass['name'] ?>"><?= $pass['title'] ?></h2>
 <p class="link js-tree-path" target="/">ГЛАВНАЯ</p>
 <p class="link js-tree-path" target="<?= $pass['path'] ?>">Назад</p>
 <input class="js-input-title" type="text" name="title" value="<?= $pass['title'] ?>">

@@ -2,7 +2,9 @@
 include $_SERVER['DOCUMENT_ROOT'].'/core/config.php';
 
 // получение страницы содержимого каталога
-$connect = mysqli_connect($host, $user, $password, $database) or die("Error " . mysqli_error($connect));
+$connect = mysqli_connect($host, $user, $password, $database)
+	or die("Error " . mysqli_error($connect));
+
 mysqli_set_charset($connect, "utf8");
 
 // получение выбранного каталога
@@ -77,7 +79,8 @@ session_write_close();
 
 <?php include $_SERVER['DOCUMENT_ROOT'].'/chunks/block/menu.php'; ?>
 
-<h2 class="js-title" this-path="<?= $folder['name'] ?>" this-fullpath="<?= $folder['fullpath'] ?>"><?= $folder['title'] ?></h2>
+<h2 class="js-title" this-path="<?= $folder['name'] ?>" this-fullpath="<?= $folder['fullpath'] ?>">
+	<?= $folder['title'] ?></h2>
 <?= $folder['name'] != '/' ? 'HOME ' . $breadcrumbs : '' ?>
 <?php if ($folder['name'] != '/') { ?>
 <p class="link js-tree-path" target="/">ГЛАВНАЯ</p>

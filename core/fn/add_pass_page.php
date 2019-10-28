@@ -1,6 +1,9 @@
 <?php session_start(); ?>
 
-<h2 class="js-title" this-path="<?= $_SESSION['folder']['name'] ?>" this-fullpath="<?= $_SESSION['folder']['fullpath'] ?>">Add pass</h2>
+<h2 class="js-title" this-path="<?= $_SESSION['folder']['name'] ?>"
+    this-fullpath="<?= $_SESSION['folder']['fullpath'] ?>">
+    Add pass
+</h2>
 <p class="link js-tree-path" target="/">ГЛАВНАЯ</p>
 <p class="link js-tree-path" target="<?= $_SESSION['folder']['path'] ?>">Назад</p>
 <input class="js-input-title" type="text" name="title" value="">
