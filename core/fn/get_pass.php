@@ -12,7 +12,7 @@ if ($pass) {
 mysqli_close($connect);
 ?>
 
-<h2><?= $pass['title'] ?></h2>
+<h2 class="js-title" this-path="<?= $pass['path'] ?>" this-fullpath="<?= $pass['fullpath'] ?>" this-name="<?= $pass['name'] ?>"><?= $pass['title'] ?></h2>
 <p class="link js-tree-path" target="/">ГЛАВНАЯ</p>
 <p class="link js-tree-path" target="<?= $pass['path'] ?>">Назад</p>
 <input class="js-input-title" type="text" name="title" value="<?= $pass['title'] ?>">
@@ -24,3 +24,6 @@ mysqli_close($connect);
 <input class="js-input-pass js-crypt" type="text" name="pass" value="<?= $pass['pass'] ?>">
 <br>
 <textarea class="js-input-note js-crypt" name="note" rows="8" cols="80"><?= $pass['note'] ?></textarea>
+
+<div class="link js-pass-save">Сохранить</div>
+<div class="link js-tree-path" target="<?= $pass['path'] ?>">Отмена</div>

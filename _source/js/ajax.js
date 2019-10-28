@@ -94,6 +94,29 @@ function saveNewPass(path, fullpath, title, name, link, login, pass, note) {
     });
 }
 
+// функция пересохранения пароля
+function savePass(path, fullpath, title, name, link, login, pass, note, oldname) {
+    var group = {
+        path: path,
+        fullpath: fullpath,
+        title: title,
+        name: name,
+        link: link,
+        login: login,
+        pass: pass,
+        note: note,
+        oldname: oldname
+    };
+    $.ajax({
+        type: 'POST',
+        url: '/core/fn/resave_pass.php',
+        data: group,
+        success: function () {
+            getContent(path);
+        }
+    });
+}
+
 // функция удаления айтема
 function delItem(name, this_path, type) {
     var item = {
@@ -191,6 +214,27 @@ $(document).ready(function () {
             saveNewPass(path, fullpath, title, name, link, login, pass, note);
         } else {
             alert('error');
+        }
+    });
+
+    // сохранение существующего пароля
+    $('body').on('click', '.js-pass-save', function () {
+        var u_confirm = confirm('Resave?');
+        if (u_confirm) {
+            var oldname = $('.js-title').attr('this-name');
+            var path = $('.js-title').attr('this-path');
+            var fullpath = $('.js-title').attr('this-fullpath');
+            var title = $('.js-input-title').val();
+            var name = translit(title);
+            var link = $('.js-input-link').val();
+            var login = $('.js-input-login').val();
+            var pass = $('.js-input-pass').val();
+            var note = $('.js-input-note').val();
+            if (path != '' && path != null && fullpath != '' && fullpath != null && name != '' && name != null && oldname != '' && oldname != null) {
+                savePass(path, fullpath, title, name, link, login, pass, note, oldname);
+            } else {
+                alert('error');
+            }
         }
     });
 

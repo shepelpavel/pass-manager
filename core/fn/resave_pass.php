@@ -6,20 +6,16 @@ $connect = mysqli_connect($host, $user, $password, $database)
 
 mysqli_set_charset($connect, "utf8");
 
-$query_check = 'SELECT * FROM `passwd`
-    WHERE `name` = "'.$_POST['name'].'"
-    AND `path` = "'.$_POST['path'].'"';
+$query_del = 'DELETE FROM `passwd`
+    WHERE
+        `name` = "'.$_POST['oldname'].'"
+    AND
+        `fullpath` = "'.$_POST['fullpath'].'"';
 
-$result_check = mysqli_query($connect, $query_check)
+$result_del = mysqli_query($connect, $query_del)
     or die("Error " . mysqli_error($connect));
 
-if ($result_check) {
-    $result_check = $result_check->fetch_assoc();
-}
-
-if (!empty($result_check)) {
-    echo 'pass exist';
-} else {
+if ($result_del) {
     $query = "INSERT INTO passwd (
         `name`,`title`,`path`,`fullpath`,`login`,`pass`,`link`,`note`
         ) values(
