@@ -62,9 +62,9 @@ mysqli_close($connect);
 $breadcrumbs = '';
 $i = 0;
 foreach ($bread as $crumb) {
-	if ($crumb['name'] != 'HOME') {
+	if ($crumb['name'] != 'HOME' && $crumb['name'] != '') {
 		if ($i == 0) { 
-			$breadcrumbs = '<div> > </div><div>'.$crumb['title'].'</div>'.$breadcrumbs;
+			$breadcrumbs = '<div> > </div><div>'.$crumb['title'].'</div>';
 		} else {
 			$breadcrumbs = '<div> > </div><div class="link js-tree-path" target="'.$crumb['name'].'">
 			'.$crumb['title'].'</div>'.$breadcrumbs;
@@ -87,33 +87,42 @@ session_write_close();
 <?php include $_SERVER['DOCUMENT_ROOT'].'/chunks/block/menu.php'; ?>
 
 <h2 class="js-title" this-path="<?= $folder['name'] ?>" this-fullpath="<?= $folder['fullpath'] ?>">
-	<?= $folder['title'] ?></h2>
+	<?= $folder['title'] ?>
+</h2>
+
 <?= $folder['name'] != 'HOME' ? '<div class="link js-tree-path" target="HOME">HOME</div>' . $breadcrumbs : '' ?>
+
 <?php if ($folder['name'] != 'HOME') { ?>
-<p class="link js-tree-path" target="/">ГЛАВНАЯ</p>
-<p class="link js-tree-path" target="<?= $folder['path'] ?>">Назад</p>
+	<p class="link js-tree-path" target="HOME">ГЛАВНАЯ</p>
+	<p class="link js-tree-path" target="<?= $folder['path'] ?>">Назад</p>
 <?php } ?>
+
 <?php if (!empty($folders_res) || !empty($pass_res)) { ?>
-<p>
-	<ul>
-		<?php foreach ($folders_res as $key => $value) { ?>
-		<li class="tree__item js-tree-item">
-			<div class="link js-tree-path js-tree-name" target="<?= $value['name'] ?>" type="groups">
-				<?= $value['title'] ?>
-			</div>
-			<div class="btn tree__item_del js-tree-del">del</div>
-		</li>
-		<?php } ?>
-		<?php foreach ($pass_res as $key => $value) { ?>
-		<li class="tree__item js-tree-item">
-			<div class="link js-pass-title js-tree-name" target="<?= $value['name'] ?>" type="passwd">
-				<?= $value['title'] ?>
-			</div>
-			<div class="btn tree__item_del js-tree-del">del</div>
-		</li>
-		<?php } ?>
-	</ul>
-</p>
+
+	<p>
+		<ul>
+			<?php foreach ($folders_res as $key => $value) { ?>
+			<li class="tree__item js-tree-item">
+				<div class="link js-tree-path js-tree-name" target="<?= $value['name'] ?>" type="groups">
+					<?= $value['title'] ?>
+				</div>
+				<div class="btn tree__item_del js-tree-del">del</div>
+			</li>
+			<?php } ?>
+
+			<?php foreach ($pass_res as $key => $value) { ?>
+			<li class="tree__item js-tree-item">
+				<div class="link js-pass-title js-tree-name" target="<?= $value['name'] ?>" type="passwd">
+					<?= $value['title'] ?>
+				</div>
+				<div class="btn tree__item_del js-tree-del">del</div>
+			</li>
+			<?php } ?>
+		</ul>
+	</p>
+
 <?php } else { ?>
-<p>Каталог пуст</p>
+
+	<p>Каталог пуст</p>
+
 <?php } ?>

@@ -18,7 +18,7 @@ mysqli_close($connect);
 
 <h2 class="js-title" this-path="<?= $pass['path'] ?>" this-fullpath="<?= $pass['fullpath'] ?>"
 	this-name="<?= $pass['name'] ?>"><?= $pass['title'] ?></h2>
-<p class="link js-tree-path" target="/">ГЛАВНАЯ</p>
+<p class="link js-tree-path" target="HOME">ГЛАВНАЯ</p>
 <p class="link js-tree-path" target="<?= $pass['path'] ?>">Назад</p>
 <input class="js-input-title" type="text" name="title" value="<?= $pass['title'] ?>">
 <br>
