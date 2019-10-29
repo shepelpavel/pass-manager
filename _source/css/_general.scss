@@ -1,14 +1,30 @@
 body {
-    background-color: #262626;
-    color: #cccccc;
+    background-color: $black;
+    color: $light;
+
+    #page {
+        background-color: $dark3;
+        width: 100vw;
+        height: 100vh;
+        position: relative;
+
+        @import 'menu';
+    }
 }
 
-.link {
-    cursor: pointer;
+.button {
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $darkcolor9;
+    border: 1px solid $lightcolor1;
     transition: .3s;
+    cursor: pointer;
 
     &:hover {
-        text-decoration: underline;
+        background-color: $black9;
+        border: 1px solid $lightcolor3;
     }
 }
 
@@ -23,19 +39,5 @@ body {
                 right: 0;
             }
         }
-    }
-}
-
-.btn {
-    max-width: 66px;
-    text-align: center;
-    padding: 6px;
-    transition: .3s;
-    cursor: pointer;
-    background-color: #000000;
-    border: 1px solid #666666;
-
-    &:hover {
-        background-color: #262626;
     }
 }

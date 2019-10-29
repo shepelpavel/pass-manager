@@ -1,11 +1,17 @@
-<div style="text-align: right;">
-    <div class="js-change-key">
-        Change key
+<div class="menu js-menu">
+    <div class="button menu-trigger js-menu-trigger">
+        <span class="menu-trigger_line menu-trigger_line1"></span>
+        <span class="menu-trigger_line menu-trigger_line2"></span>
     </div>
-    <div class="link js-add-group">
-        Add folder
-    </div>
-    <div class="link js-add-pass">
-        Add pass
+    <div class="menu__inner">
+        <div class="button menu__inner_link js-add-group">
+            Добавить каталог
+        </div>
+        <div class="button menu__inner_link js-add-pass">
+            Добавить пароль
+        </div>
+        <div class="button menu__inner_link js-change-key">
+            Изменить ключ
+        </div>
     </div>
 </div>
