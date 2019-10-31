@@ -9,6 +9,8 @@
     <meta name="msapplication-TileColor" content="#666666">
     <meta name="theme-color" content="#ffffff">
 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title><?= $title ?></title>
 
     <script src="/_assets/module/jquery/jquery-3.4.1.min.js" charset="utf-8"></script>

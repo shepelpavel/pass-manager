@@ -1,6 +1,7 @@
 body {
     background-color: $black;
     color: $light;
+    font-family: "Exo 2", "Courier New", Courier, monospace;
 
     #page {
         background-color: $dark3;
@@ -9,6 +10,7 @@ body {
         position: relative;
 
         @import 'menu';
+        @import 'content';
     }
 }
 
@@ -25,19 +27,5 @@ body {
     &:hover {
         background-color: $black9;
         border: 1px solid $lightcolor3;
-    }
-}
-
-.page {
-    .tree {
-        &__item {
-            position: relative;
-
-            &_del {
-                position: absolute;
-                top: 0;
-                right: 0;
-            }
-        }
     }
 }

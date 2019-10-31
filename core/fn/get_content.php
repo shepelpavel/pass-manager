@@ -64,9 +64,9 @@ $i = 0;
 foreach ($bread as $crumb) {
 	if ($crumb['name'] != 'HOME' && $crumb['name'] != '') {
 		if ($i == 0) { 
-			$breadcrumbs = '<div> > </div><div>'.$crumb['title'].'</div>';
+			$breadcrumbs = '<div class="breadcrumbs__arrow"> > </div><div class="breadcrumbs__nolink">'.$crumb['title'].'</div>';
 		} else {
-			$breadcrumbs = '<div> > </div><div class="link js-tree-path" target="'.$crumb['name'].'">
+			$breadcrumbs = '<div class="breadcrumbs__arrow"> > </div><div class="breadcrumbs__link js-tree-path" target="'.$crumb['name'].'">
 			'.$crumb['title'].'</div>'.$breadcrumbs;
 		}
 	}
@@ -86,43 +86,61 @@ session_write_close();
 
 <?php include $_SERVER['DOCUMENT_ROOT'].'/chunks/block/menu.php'; ?>
 
-<h2 class="js-title" this-path="<?= $folder['name'] ?>" this-fullpath="<?= $folder['fullpath'] ?>">
-	<?= $folder['title'] ?>
-</h2>
+<div class="content">
 
-<?= $folder['name'] != 'HOME' ? '<div class="link js-tree-path" target="HOME">HOME</div>' . $breadcrumbs : '' ?>
+	<h2 class="js-title" this-path="<?= $folder['name'] ?>" this-fullpath="<?= $folder['fullpath'] ?>">
+		<?= $folder['title'] ?>
+	</h2>
 
-<?php if ($folder['name'] != 'HOME') { ?>
-	<p class="link js-tree-path" target="HOME">ГЛАВНАЯ</p>
-	<p class="link js-tree-path" target="<?= $folder['path'] ?>">Назад</p>
-<?php } ?>
+	<div class="breadcrumbs">
+		<?= $folder['name'] != 'HOME' ? '<div class="breadcrumbs__link js-tree-path" target="HOME">HOME</div>' . $breadcrumbs : '' ?>
+	</div>
 
-<?php if (!empty($folders_res) || !empty($pass_res)) { ?>
+	<?php if ($folder['name'] != 'HOME') { ?>
+	<div class="controls">
+		<div class="controls__link js-tree-path" target="<?= $folder['path'] ?>">
+			<img class="controls__link_icon" src="/_assets/img/svg/left-arrow.svg" alt="Home">
+		</div>
+		<div class="controls__link js-tree-path" target="HOME">
+			<img class="controls__link_icon" src="/_assets/img/svg/home.svg" alt="Home">
+		</div>
+	</div>
+	<?php } ?>
 
-	<p>
-		<ul>
-			<?php foreach ($folders_res as $key => $value) { ?>
-			<li class="tree__item js-tree-item">
-				<div class="link js-tree-path js-tree-name" target="<?= $value['name'] ?>" type="groups">
-					<?= $value['title'] ?>
-				</div>
-				<div class="btn tree__item_del js-tree-del">del</div>
-			</li>
-			<?php } ?>
+	<?php if (!empty($folders_res) || !empty($pass_res)) { ?>
 
-			<?php foreach ($pass_res as $key => $value) { ?>
-			<li class="tree__item js-tree-item">
-				<div class="link js-pass-title js-tree-name" target="<?= $value['name'] ?>" type="passwd">
-					<?= $value['title'] ?>
-				</div>
-				<div class="btn tree__item_del js-tree-del">del</div>
-			</li>
-			<?php } ?>
-		</ul>
-	</p>
+	<div class="tree">
+		<?php foreach ($folders_res as $key => $value) { ?>
+		<div class="tree__item tree__item_folder js-tree-item">
+			<div class="tree__item_link js-tree-path js-tree-name" target="<?= $value['name'] ?>" type="groups">
+				<?= $value['title'] ?>
+			</div>
+			<div class="tree__item_del js-del-btn">
+				<div class="del__btn js-tree-del"></div>
+				<div class="del__anim js-del-anim"></div>
+			</div>
+		</div>
+		<?php } ?>
 
-<?php } else { ?>
+		<?php foreach ($pass_res as $key => $value) { ?>
+		<div class="tree__item tree__item_passwd js-tree-item">
+			<div class="tree__item_link js-pass-title js-tree-name" target="<?= $value['name'] ?>" type="passwd">
+				<?= $value['title'] ?>
+			</div>
+			<div class="tree__item_del js-del-btn">
+				<div class="del__btn js-tree-del"></div>
+				<div class="del__anim js-del-anim"></div>
+			</div>
+		</div>
+		<?php } ?>
+	</div>
 
-	<p>Каталог пуст</p>
+	<?php } else { ?>
 
-<?php } ?>
+	<div class="tree">
+		<div class="empty">Каталог пуст</div>
+	</div>
+
+	<?php } ?>
+
+</div>
