@@ -99,7 +99,7 @@ session_write_close();
 	<?php if ($folder['name'] != 'HOME') { ?>
 	<div class="controls">
 		<div class="controls__link js-tree-path" target="<?= $folder['path'] ?>">
-			<img class="controls__link_icon" src="/_assets/img/svg/left-arrow.svg" alt="Home">
+			<img class="controls__link_icon" src="/_assets/img/svg/left-arrow.svg" alt="Back">
 		</div>
 		<div class="controls__link js-tree-path" target="HOME">
 			<img class="controls__link_icon" src="/_assets/img/svg/home.svg" alt="Home">
