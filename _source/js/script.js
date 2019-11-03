@@ -5,6 +5,13 @@ $(document).ready(function () {
         $(this).toggleClass('open');
         $(this).closest('.js-menu').toggleClass('open');
     });
+    $(document).on('click', function (e) {
+        if (!$(e.target).closest('.js-menu').length) {
+            $('.js-menu-trigger').removeClass('open');
+            $('.js-menu').removeClass('open');
+        }
+        e.stopPropagation();
+    });
 
     // анимация кнопки del
     var timr;
