@@ -88,6 +88,7 @@ session_write_close();
 
 <div class="content">
 
+<?php echo '<pre>'; print_r($_SESSION['key']); echo '</pre>'; ?>
 	<h2 class="js-title" this-path="<?= $folder['name'] ?>" this-fullpath="<?= $folder['fullpath'] ?>">
 		<?= $folder['title'] ?>
 	</h2>
