@@ -1,12 +1,12 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT'].'/core/config.php';
 
-// получение массива значений полей пароля
 $connect = mysqli_connect($host, $user, $password, $database)
-	or die("error");
+or die("error");
 
 mysqli_set_charset($connect, "utf8");
 
+// получение массива значений полей пароля
 $query_pass = 'SELECT * FROM `passwd` WHERE `name` = "'.$_POST['name'].'"';
 $pass = mysqli_query($connect, $query_pass) or die("error");
 if ($pass) {
