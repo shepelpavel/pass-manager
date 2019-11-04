@@ -88,7 +88,7 @@ session_write_close();
 
 <div class="content">
 
-<?php echo '<pre>'; print_r($_SESSION['key']); echo '</pre>'; ?>
+	<?php echo '<pre>'; print_r($_SESSION['key']); echo '</pre>'; ?>
 	<h2 class="js-title" this-path="<?= $folder['name'] ?>" this-fullpath="<?= $folder['fullpath'] ?>">
 		<?= $folder['title'] ?>
 	</h2>
@@ -116,9 +116,18 @@ session_write_close();
 			<div class="tree__item_link js-tree-path js-tree-name" target="<?= $value['name'] ?>" type="groups">
 				<?= $value['title'] ?>
 			</div>
-			<div class="tree__item_del js-del-btn">
-				<div class="del__btn js-tree-del"></div>
-				<div class="del__anim js-del-anim"></div>
+			<div class="tree__item_more js-more">
+				<div class="more__modal js-more-modal">
+					<div class="more__modal_item more__modal_item_edit js-folder-edit">
+						<img src="/_assets/img/svg/edit.svg" alt="Edit">
+						Изменить
+					</div>
+					<div class="more__modal_item more__modal_item_del js-tree-del">
+						<img src="/_assets/img/svg/trash.svg" alt="Delete">
+						Удалить
+					</div>
+				</div>
+				<div class="more__anim js-more-anim"></div>
 			</div>
 		</div>
 		<?php } ?>
@@ -128,9 +137,19 @@ session_write_close();
 			<div class="tree__item_link js-pass-title js-tree-name" target="<?= $value['name'] ?>" type="passwd">
 				<?= $value['title'] ?>
 			</div>
-			<div class="tree__item_del js-del-btn">
-				<div class="del__btn js-tree-del"></div>
-				<div class="del__anim js-del-anim"></div>
+			<div class="tree__item_more js-more">
+				<div class="more__modal js-more-modal">
+					<div class="more__modal_item more__modal_item_edit js-pass-title js-tree-name"
+						target="<?= $value['name'] ?>" type="passwd">
+						<img src="/_assets/img/svg/edit.svg" alt="Edit">
+						Изменить
+					</div>
+					<div class="more__modal_item more__modal_item_del js-tree-del">
+						<img src="/_assets/img/svg/trash.svg" alt="Delete">
+						Удалить
+					</div>
+				</div>
+				<div class="more__anim js-more-anim"></div>
 			</div>
 		</div>
 		<?php } ?>

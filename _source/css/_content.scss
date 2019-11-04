@@ -118,14 +118,43 @@
                 margin-right: 40px;
             }
 
-            &_del {
+            &_more {
                 position: absolute;
                 width: 40px;
                 height: 35px;
                 top: 0;
                 right: 0;
 
-                .del {
+                .more {
+                    &__modal {
+                        display: none;
+                        position: absolute;
+                        right: 14px;
+                        top: 16px;
+                        z-index: 1;
+                        width: 200px;
+                        background-color: $black7;
+                        border: 1px solid $lightcolor5;
+
+                        &_item {
+                            font-size: 1rem;
+                            padding: 10px;
+                            padding-left: 36px;
+                            position: relative;
+
+                            &:hover {
+                                background-color: $darkcolor7;
+                            }
+
+                            img {
+                                width: 24px;
+                                position: absolute;
+                                left: 6px;
+                                top: 6px;
+                            }
+                        }
+                    }
+
                     &__anim {
                         position: absolute;
                         width: 5px;
@@ -159,32 +188,6 @@
                         &.animate {
                             animation: rotate 1s infinite ease-in-out;
                             background-color: transparent;
-                        }
-                    }
-
-                    &__btn {
-                        width: 40px;
-                        height: 35px;
-                        display: none;
-                        position: relative;
-
-                        &::before,
-                        &::after {
-                            content: '';
-                            position: absolute;
-                            width: 30px;
-                            height: 1px;
-                            background-color: $lightcolor5;
-                            top: 17px;
-                            left: 10px;
-                        }
-
-                        &::before {
-                            transform: rotate(-45deg);
-                        }
-
-                        &::after {
-                            transform: rotate(45deg);
                         }
                     }
                 }
@@ -322,15 +325,5 @@
                 }
             }
         }
-    }
-}
-
-@keyframes rotate {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
     }
 }

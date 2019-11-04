@@ -13,23 +13,17 @@ $(document).ready(function () {
         e.stopPropagation();
     });
 
-    // анимация кнопки del
-    var timr;
-    $('body').on('click', '.js-del-btn', function () {
-        var t = $(this);
-        $('.js-del-anim').removeClass('animate');
-        $(t).find('.js-del-anim').addClass('animate');
-        timr = setTimeout(function() {
-            $(t).find('.js-del-anim').fadeOut();
-            $(t).find('.js-tree-del').fadeIn();
-        }, 2700);
+    // кнопка more
+    $('body').on('click', '.js-more', function () {
+        $('.js-more-anim').removeClass('animate');
+        $('.js-more-modal').slideUp();
+        $(this).find('.js-more-anim').addClass('animate');
+        $(this).find('.js-more-modal').slideDown();
     });
     $(document).on('click', function (e) {
-        if (!$(e.target).closest('.js-del-btn').length) {
-            if (timr) clearTimeout(timr);
-            $('.js-del-anim').removeClass('animate');
-            $('.js-del-anim').fadeIn();
-            $('.js-tree-del').fadeOut();
+        if (!$(e.target).closest('.js-more').length) {
+            $('.js-more-anim').removeClass('animate');
+            $('.js-more-modal').slideUp();
         }
         e.stopPropagation();
     });
