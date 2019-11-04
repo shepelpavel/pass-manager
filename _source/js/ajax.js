@@ -336,7 +336,8 @@ $(document).ready(function () {
     $('body').on('focusin', '.js-crypt', function () {
         var text = $(this).val();
         var elem = $(this);
-
+        $(this).next('.js-pass-copy').addClass('hide');
+        
         if (text != '' && text != '') {
             focusInDecrypt(elem, text);
         }
@@ -346,6 +347,7 @@ $(document).ready(function () {
     $('body').on('focusout', '.js-crypt', function () {
         var text = $(this).val();
         var elem = $(this);
+        $('.js-pass-copy').removeClass('hide');
 
         if (text != '' && text != null) {
             focusOutCrypt(elem, text);
