@@ -9,6 +9,7 @@ function getContent(path) {
                 opacity: 0
             }, 300, function () {
                 $('#page').html(data);
+                $(window).scrollTop(0);
             });
             $('#page').animate({
                 opacity: 1
@@ -28,6 +29,7 @@ function getPass(name) {
                 opacity: 0
             }, 300, function () {
                 $('#page').html(data);
+                $(window).scrollTop(0);
             });
             $('#page').animate({
                 opacity: 1
@@ -70,6 +72,7 @@ function getAddPassPage() {
                 opacity: 0
             }, 300, function () {
                 $('#page').html(data);
+                $(window).scrollTop(0);
             });
             $('#page').animate({
                 opacity: 1
