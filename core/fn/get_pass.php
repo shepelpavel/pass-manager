@@ -74,7 +74,6 @@ mysqli_close($connect);
 	<div class="pass">
 		<div class="pass__input pass__input_title">
 			<input class="js-input-title" type="text" name="title" value="<?= $pass['title'] ?>">
-			<img class="pass__input_copy js-pass-copy" src="/_assets/img/svg/copy.svg" alt="Copy">
 		</div>
 		<div class="pass__input pass__input_link">
 			<input class="js-input-link js-crypt" type="text" name="link" value="<?= $pass['link'] ?>">

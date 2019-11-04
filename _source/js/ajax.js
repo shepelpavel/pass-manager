@@ -181,6 +181,26 @@ function focusOutCrypt(elem, key) {
     });
 }
 
+function copyButton(elem, key) {
+    $.ajax({
+        type: 'POST',
+        url: '/core/fn/get_key.php',
+        success: function (data) {
+            var text = decoding(data, key);
+            var temp = $('<input style="position: absolute; left: -9999px">');
+            $("body").append(temp);
+            $(temp).val(text).select();
+            document.execCommand("copy");
+            $(temp).remove();
+
+            $(elem).addClass('copied');
+            setTimeout(function () {
+                $('.js-pass-copy').removeClass('copied');
+            }, 1000);
+        }
+    });
+}
+
 $(document).ready(function () {
 
     // получение стартовой страницы
@@ -329,6 +349,15 @@ $(document).ready(function () {
 
         if (text != '' && text != null) {
             focusOutCrypt(elem, text);
+        }
+    });
+
+    // кнопка скопировать пароль
+    $('body').on('click', '.js-pass-copy', function () {
+        var text = $(this).prev('input').val();
+        var elem = $(this);
+        if (text != '' && text != null) {
+            copyButton(elem, text);
         }
     });
 

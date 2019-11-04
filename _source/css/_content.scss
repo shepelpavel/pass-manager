@@ -233,6 +233,7 @@
                 color: $white;
                 font-family: "Exo 2", "Courier New", Courier, monospace;
                 resize: none;
+                min-height: 26px;
             }
 
             textarea::-webkit-scrollbar {
@@ -294,6 +295,9 @@
 
                 &:hover {
                     background-color: $black9;
+                }
+                &.copied {
+                    animation: bell 1s ease-in-out;
                 }
             }
         }
