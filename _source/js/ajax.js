@@ -5,6 +5,7 @@ function getContent(path) {
         url: '/core/fn/get_content.php',
         data: "path=" + path,
         success: function (data) {
+            top.location = '#' + path;
             $('#page').animate({
                 opacity: 0
             }, 300, function () {
@@ -25,6 +26,7 @@ function getPass(name) {
         url: '/core/fn/get_pass.php',
         data: "name=" + name,
         success: function (data) {
+            top.location = '#' + name;
             $('#page').animate({
                 opacity: 0
             }, 300, function () {
@@ -68,6 +70,7 @@ function getAddPassPage() {
         type: 'POST',
         url: '/core/fn/add_pass_page.php',
         success: function (data) {
+            top.location = '#newpass';
             $('#page').animate({
                 opacity: 0
             }, 300, function () {
@@ -181,6 +184,7 @@ function focusOutCrypt(elem, key) {
     });
 }
 
+// функция кнопки копирования пароля
 function copyButton(elem, key) {
     $.ajax({
         type: 'POST',
@@ -362,6 +366,14 @@ $(document).ready(function () {
             copyButton(elem, text);
         }
     });
+
+    // перехват клавиши "назад"
+    // $(window).on('beforeunload', function () {
+    //     location.replace('/#HOME');
+    // });
+    // $(window).on('hashchange', function () {
+    //     location.replace('/');
+    // });
 
     // $('body').on('click', '.js-save', function() {
     //     var text = $('.js-textarea').val();
