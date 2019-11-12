@@ -232,7 +232,7 @@ $(document).ready(function () {
     // получение стартовой страницы
     getContent('HOME');
 
-    // формирование страницы каталога
+    // получение страницы каталога
     $('body').on('click', '.js-tree-path', function () {
         var target_path = $(this).attr('target');
 

@@ -1,10 +1,7 @@
 <?php
 
-// database
-$host           = 'localhost';
-$database       = 'pass_manager';
-$user           = 'mysql';
-$password       = 'mysql';
+// data
+$basepath       = $_SERVER['DOCUMENT_ROOT'] . '/data';
 
 // meta
 $title          = 'PssMgr';
