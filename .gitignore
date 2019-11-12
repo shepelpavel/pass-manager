@@ -1,9 +1,9 @@
 # node
-/node_modules/
+node_modules
 package-lock.json
 
 # assets
-/_assets/
+public/_assets
 
 #htpasswd
 .htpasswd
