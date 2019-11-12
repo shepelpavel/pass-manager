@@ -9,4 +9,7 @@ public/_assets
 .htpasswd
 
 #data
-data
+data/*
+
+#gitkeep
+!*.gitkeep

@@ -62,7 +62,7 @@ $folders_res = array_diff(scandir($_SESSION['fullpath']), array('..', '.'));
         <?php } ?>
         <?php } ?>
         <?php foreach ($folders_res as $value) { ?>
-        <?php if (!is_dir($_SESSION['fullpath'].'/'.$value)) { ?>
+        <?php if (!is_dir($_SESSION['fullpath'].'/'.$value) && stripos($value, '.json') > 0) { ?>
         <div class="tree__item tree__item_passwd js-tree-item">
             <div class="tree__item_link js-pass-title js-tree-name" target="<?= $_SESSION['path'].'/'.$value ?>"
                 type="passwd">
