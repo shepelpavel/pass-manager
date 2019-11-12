@@ -62,6 +62,31 @@ function addGroup(name, title, path, fullpath) {
     });
 }
 
+// функция изменения каталога
+function editGroup(name, title, path, fullpath, oldname) {
+    var group = {
+        name: name,
+        title: title,
+        path: path,
+        fullpath: fullpath + '/' + name,
+        oldname: oldname,
+    };
+    $.ajax({
+        type: 'POST',
+        url: '/core/fn/edit_group.php',
+        data: group,
+        success: function (data) {
+            if (data == 'error') {
+                alert('Error!');
+            } else if (data == 'exist') {
+                alert('Folder exist!');
+            } else {
+                getContent(path);
+            }
+        }
+    });
+}
+
 // функция получения страницы добавления пароля
 function getAddPassPage() {
     $.ajax({
@@ -229,7 +254,7 @@ $(document).ready(function () {
         }
     });
 
-    // добавление группы
+    // добавление каталога
     $('body').on('click', '.js-add-group', function () {
         var path = $('.js-title').attr('this-path');
         var fullpath = $('.js-title').attr('this-fullpath');
@@ -244,6 +269,29 @@ $(document).ready(function () {
             name != null) {
 
             addGroup(name, title, path, fullpath);
+        } else {
+            alert('error');
+        }
+    });
+
+    // изменение каталога
+    $('body').on('click', '.js-folder-edit', function () {
+        var path = $('.js-title').attr('this-path');
+        var fullpath = $('.js-title').attr('this-fullpath');
+        var oldname = $(this).closest('.js-tree-item').find('.js-tree-name').attr('target');
+        var title = prompt('Enter new name', oldname);
+        var name = translit(title);
+
+        if (path != '' &&
+            path != null &&
+            fullpath != '' &&
+            fullpath != null &&
+            name != '' &&
+            name != null &&
+            title != '' &&
+            title != null) {
+
+            editGroup(name, title, path, fullpath, oldname);
         } else {
             alert('error');
         }
@@ -338,7 +386,7 @@ $(document).ready(function () {
         var text = $(this).val();
         var elem = $(this);
         $(this).next('.js-pass-copy').addClass('hide');
-        
+
         if (text != '' && text != '') {
             focusInDecrypt(elem, text);
         }
