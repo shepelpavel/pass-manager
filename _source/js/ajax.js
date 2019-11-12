@@ -5,7 +5,6 @@ function getContent(path) {
         url: '/core/fn/get_content.php',
         data: "path=" + path,
         success: function (data) {
-            top.location = '#' + path;
             $('#page').animate({
                 opacity: 0
             }, 300, function () {
@@ -26,7 +25,6 @@ function getPass(name) {
         url: '/core/fn/get_pass.php',
         data: "name=" + name,
         success: function (data) {
-            top.location = '#' + name;
             $('#page').animate({
                 opacity: 0
             }, 300, function () {
@@ -70,7 +68,6 @@ function getAddPassPage() {
         type: 'POST',
         url: '/core/fn/add_pass_page.php',
         success: function (data) {
-            top.location = '#newpass';
             $('#page').animate({
                 opacity: 0
             }, 300, function () {
@@ -368,12 +365,10 @@ $(document).ready(function () {
     });
 
     // перехват клавиши "назад"
-    // $(window).on('beforeunload', function () {
-    //     location.replace('/#HOME');
-    // });
-    // $(window).on('hashchange', function () {
-    //     location.replace('/');
-    // });
+    history.pushState(null, null, location.href);
+    window.onpopstate = function (e) {
+        history.go(1);
+    };
 
     // $('body').on('click', '.js-save', function() {
     //     var text = $('.js-textarea').val();
