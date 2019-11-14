@@ -14,15 +14,41 @@ if ($_SESSION['backpath'] == '') {
 }
 
 $folders_res = array_diff(scandir($_SESSION['fullpath']), array('..', '.'));
+
+if ($_SESSION['path'] != '') {
+    $bread_in                   = $_SESSION['path'];
+    $breadcrumbs                = [];
+    while ($bread_in != '') {
+        $bread_name             = substr($bread_in, strrpos($bread_in, '/')+1);
+        $bread_link             = $bread_in = substr($bread_in, 0, strrpos($bread_in, '/'));
+        $breadcrumbs[]          = [
+            'name'                  => $bread_name,
+            'link'                  => $bread_link.'/'.$bread_name
+        ];
+    }
+    $breadcrumbs                = array_reverse($breadcrumbs);
+}
+
 ?>
 
 <?php include $_SERVER['DOCUMENT_ROOT'].'/chunks/block/menu.php'; ?>
 
 <div class="content">
 
-    <h2><?= $_SESSION['path'] == '' ? 'HOME' : getcwd($_SESSION['fullpath']) ?></h2>
+    <h2><?= $_SESSION['path'] == '' ? 'HOME' : basename($_SESSION['fullpath']) ?></h2>
 
-    <?php echo '<pre>'; print_r($_SESSION); echo '</pre>'; ?>
+    <div class="breadcrumbs">
+    <?php if ($_SESSION['path'] != '') {
+        echo '<div class="breadcrumbs__link js-tree-path" target="HOME">HOME</div>';
+        foreach ($breadcrumbs as $crumb) {
+            if (next($breadcrumbs)) {
+                echo '<div class="breadcrumbs__arrow"> > </div><div class="breadcrumbs__link js-tree-path" target="'.$crumb['link'].'">'.$crumb['name'].'</div>';
+            } else {
+                echo '<div class="breadcrumbs__arrow"> > </div><div class="breadcrumbs__nolink">'.$crumb['name'].'</div>';
+            }
+        }
+    } ?>
+    </div>
 
     <?php if ($_SESSION['path'] != '') { ?>
     <div class="controls">
