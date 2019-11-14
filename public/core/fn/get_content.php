@@ -94,7 +94,7 @@ if ($_SESSION['path'] != '') {
         <div class="tree__item tree__item_passwd js-tree-item">
             <div class="tree__item_link js-pass-title js-tree-name" target="<?= $_SESSION['path'].'/'.$value ?>"
                 type="passwd">
-                <?= json_decode(file_get_contents($_SESSION['fullpath'].'/'.$value), true)['title'] ?>
+                <?= substr($value, 0, strrpos($value, '.json')) ?>
             </div>
             <div class="tree__item_more js-more">
                 <div class="more__modal js-more-modal">
