@@ -13,7 +13,7 @@ if ($_SESSION['backpath'] == '') {
     $_SESSION['backpath']       = 'HOME';
 }
 
-$folders_res = array_diff(scandir($_SESSION['fullpath']), array('..', '.'));
+$_SESSION['folders_res']        = array_diff(scandir($_SESSION['fullpath']), array('..', '.'));
 
 if ($_SESSION['path'] != '') {
     $bread_in                   = $_SESSION['path'];
@@ -26,7 +26,9 @@ if ($_SESSION['path'] != '') {
             'link'                  => $bread_link.'/'.$bread_name
         ];
     }
-    $breadcrumbs                = array_reverse($breadcrumbs);
+    $_SESSION['breadcrumbs']    = array_reverse($breadcrumbs);
+} else {
+    $_SESSION['breadcrumbs']    = [];
 }
 
 ?>
@@ -38,10 +40,10 @@ if ($_SESSION['path'] != '') {
     <h2><?= $_SESSION['path'] == '' ? 'HOME' : basename($_SESSION['fullpath']) ?></h2>
 
     <div class="breadcrumbs">
-    <?php if ($_SESSION['path'] != '') {
+        <?php if ($_SESSION['path'] != '') {
         echo '<div class="breadcrumbs__link js-tree-path" target="HOME">HOME</div>';
-        foreach ($breadcrumbs as $crumb) {
-            if (next($breadcrumbs)) {
+        foreach ($_SESSION['breadcrumbs'] as $crumb) {
+            if (next($_SESSION['breadcrumbs'])) {
                 echo '<div class="breadcrumbs__arrow"> > </div><div class="breadcrumbs__link js-tree-path" target="'.$crumb['link'].'">'.$crumb['name'].'</div>';
             } else {
                 echo '<div class="breadcrumbs__arrow"> > </div><div class="breadcrumbs__nolink">'.$crumb['name'].'</div>';
@@ -61,10 +63,10 @@ if ($_SESSION['path'] != '') {
     </div>
     <?php } ?>
 
-    <?php if (!empty($folders_res)) { ?>
+    <?php if (!empty($_SESSION['folders_res'])) { ?>
 
     <div class="tree">
-        <?php foreach ($folders_res as $value) { ?>
+        <?php foreach ($_SESSION['folders_res'] as $value) { ?>
         <?php if (is_dir($_SESSION['fullpath'].'/'.$value)) { ?>
         <div class="tree__item tree__item_folder js-tree-item">
             <div class="tree__item_link js-tree-path js-tree-name" target="<?= $_SESSION['path'].'/'.$value ?>"
@@ -87,7 +89,7 @@ if ($_SESSION['path'] != '') {
         </div>
         <?php } ?>
         <?php } ?>
-        <?php foreach ($folders_res as $value) { ?>
+        <?php foreach ($_SESSION['folders_res'] as $value) { ?>
         <?php if (!is_dir($_SESSION['fullpath'].'/'.$value) && stripos($value, '.json') > 0) { ?>
         <div class="tree__item tree__item_passwd js-tree-item">
             <div class="tree__item_link js-pass-title js-tree-name" target="<?= $_SESSION['path'].'/'.$value ?>"
