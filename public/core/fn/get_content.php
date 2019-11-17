@@ -3,33 +3,41 @@ include $_SERVER['DOCUMENT_ROOT'].'/core/config.php';
 session_start();
 
 if ($_POST['path'] == 'HOME') {
-    $_SESSION['path']           = '';
+    $path                           = '';
 } else {
-    $_SESSION['path']           = $_POST['path'];
+    $path                           = $_POST['path'];
 }
-$_SESSION['fullpath']           = $BASEPATH.$_SESSION['path'];
-$_SESSION['backpath']           = substr($_SESSION['path'], 0, strrpos($_SESSION['path'], '/'));
-if ($_SESSION['backpath'] == '') {
-    $_SESSION['backpath']       = 'HOME';
+$fullpath                           = $BASEPATH.$path;
+$folders_res                        = array_diff(scandir($fullpath), array('..', '.'));
+$thisname                           = $path == '' ? 'HOME' : basename($fullpath);
+$backpath                           = substr($path, 0, strrpos($path, '/'));
+if ($backpath == '') {
+    $backpath                       = 'HOME';
 }
-
-$_SESSION['folders_res']        = array_diff(scandir($_SESSION['fullpath']), array('..', '.'));
-
-if ($_SESSION['path'] != '') {
-    $bread_in                   = $_SESSION['path'];
-    $breadcrumbs                = [];
+if ($path != '') {
+    $bread_in                       = $path;
+    $breadcrumbs                    = [];
     while ($bread_in != '') {
-        $bread_name             = substr($bread_in, strrpos($bread_in, '/')+1);
-        $bread_link             = $bread_in = substr($bread_in, 0, strrpos($bread_in, '/'));
-        $breadcrumbs[]          = [
-            'name'                  => $bread_name,
-            'link'                  => $bread_link.'/'.$bread_name
+        $bread_name                 = substr($bread_in, strrpos($bread_in, '/')+1);
+        $bread_link                 = $bread_in = substr($bread_in, 0, strrpos($bread_in, '/'));
+        $breadcrumbs[]              = [
+            'name'                      => $bread_name,
+            'link'                      => $bread_link.'/'.$bread_name
         ];
     }
-    $_SESSION['breadcrumbs']    = array_reverse($breadcrumbs);
+    $breadcrumbs                    = array_reverse($breadcrumbs);
 } else {
-    $_SESSION['breadcrumbs']    = [];
+    $breadcrumbs                    = [];
 }
+
+$_SESSION['folders_res']            = $folders_res;
+$_SESSION['backpath']               = $backpath;
+$_SESSION['path']                   = $path;
+$_SESSION['thisname']               = $thisname;
+$_SESSION['fullpath']               = $fullpath;
+$_SESSION['file']                   = '';
+$_SESSION['file_res']               = '';
+$_SESSION['breadcrumbs']            = $breadcrumbs;
 
 ?>
 
@@ -37,7 +45,7 @@ if ($_SESSION['path'] != '') {
 
 <div class="content">
 
-    <h2><?= $_SESSION['path'] == '' ? 'HOME' : basename($_SESSION['fullpath']) ?></h2>
+    <h2><?= $_SESSION['thisname'] ?></h2>
 
     <div class="breadcrumbs">
         <?php if ($_SESSION['path'] != '') {
