@@ -3,6 +3,9 @@ include $_SERVER['DOCUMENT_ROOT'].'/core/config.php';
 session_start();
 
 $backpath                           = $_SESSION['path'];
+if ($backpath == '') {
+    $backpath                       = 'HOME';
+}
 $path                               = $_POST['name'];
 $fullpath                           = $BASEPATH.$_POST['name'];
 $file                               = $BASEPATH.$_POST['name'];
