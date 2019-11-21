@@ -1,44 +1,24 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT'].'/core/config.php';
+session_start();
 
-$connect = mysqli_connect($host, $user, $password, $database)
-    or die("error");
-
-mysqli_set_charset($connect, "utf8");
-
-$query_check = 'SELECT * FROM `groups` WHERE `name` = "'.$_POST['name'].'"';
-$result_check = mysqli_query($connect, $query_check) or die("error");
-
-if ($result_check) {
-    $result_check = $result_check->fetch_assoc();
-}
-
-if (!empty($result_check)) {
+$old_path                   = $_SESSION['fullpath'].'/'.$_POST['oldname'];
+$new_path                   = $_SESSION['fullpath'].'/'.$_POST['name'];
+if (file_exists($new_path)) {
     echo 'exist';
+    return;
 } else {
-    $queryfirst = "UPDATE `groups`
-        SET
-            `name` = '".$_POST['name']."',
-            `title` = '".$_POST['title']."',
-            `fullpath` = '".$_POST['fullpath']."'
-        WHERE `name` = '".$_POST['oldname']."'";
-    $querysecond = "UPDATE `pass`
-        SET
-            `path` = '".$_POST['path']."',
-            `fullpath` = '".$_POST['fullpath']."'
-        WHERE `path` = '".$_POST['oldname']."'";
-
-    $resultfirst = mysqli_query($connect, $queryfirst)
-        or die("error");
-    $resultsecond = mysqli_query($connect, $querysecond)
-        or die("error");
-        
-    if ($resultfirst && $resultsecond) {
-        echo 'ok';
-    } else {
-        echo 'error';
-    }
+    $result                 = rename($old_path, $new_path);
 }
+if ($result) {
+    $result_path            = $_SESSION['path'];
+    if ($result_path == '') {
+        $result_path        = 'HOME';
+    }
+} else {
+    $result_path            = 'error';
+}
+echo $result_path;
 
-mysqli_close($connect);
+session_write_close();
 ?>

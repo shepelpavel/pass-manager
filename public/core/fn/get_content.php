@@ -85,7 +85,7 @@ $_SESSION['breadcrumbs']            = $breadcrumbs;
                 <div class="more__modal js-more-modal">
                     <div class="more__modal_item more__modal_item_edit js-folder-edit">
                         <img src="/_assets/img/svg/edit.svg" alt="Edit">
-                        Изменить
+                        Переименовать
                     </div>
                     <div class="more__modal_item more__modal_item_del js-tree-del">
                         <img src="/_assets/img/svg/trash.svg" alt="Delete">

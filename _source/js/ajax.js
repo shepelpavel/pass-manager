@@ -57,13 +57,10 @@ function addGroup(name) {
 }
 
 // функция изменения каталога
-function editGroup(name, title, path, fullpath, oldname) {
+function editGroup(name, oldname) {
     var group = {
         name: name,
-        title: title,
-        path: path,
-        fullpath: fullpath + '/' + name,
-        oldname: oldname,
+        oldname: oldname
     };
     $.ajax({
         type: 'POST',
@@ -75,7 +72,7 @@ function editGroup(name, title, path, fullpath, oldname) {
             } else if (data == 'exist') {
                 alert('Folder exist!');
             } else {
-                getContent(path);
+                getContent(data);
             }
         }
     });
@@ -262,22 +259,14 @@ $(document).ready(function () {
 
     // изменение каталога
     $('body').on('click', '.js-folder-edit', function () {
-        var path = $('.js-title').attr('this-path');
-        var fullpath = $('.js-title').attr('this-fullpath');
         var oldname = $(this).closest('.js-tree-item').find('.js-tree-name').attr('target');
-        var title = prompt('Enter new name', oldname);
-        var name = translit(title);
+        var in_name = prompt('Enter new name', oldname.substr(1));
+        var name = '/' + in_name;
 
-        if (path != '' &&
-            path != null &&
-            fullpath != '' &&
-            fullpath != null &&
-            name != '' &&
-            name != null &&
-            title != '' &&
-            title != null) {
+        if (name != '' &&
+            name != null) {
 
-            editGroup(name, title, path, fullpath, oldname);
+            editGroup(name, oldname);
         } else {
             alert('error');
         }
