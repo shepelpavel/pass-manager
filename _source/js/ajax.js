@@ -39,24 +39,18 @@ function getPass(name) {
 }
 
 // функция добавления каталога
-function addGroup(name, title, path, fullpath) {
-    var group = {
-        name: name,
-        title: title,
-        path: path,
-        fullpath: fullpath + '/' + name
-    };
+function addGroup(name) {
     $.ajax({
         type: 'POST',
         url: '/core/fn/add_group.php',
-        data: group,
+        data: "name=" + name,
         success: function (data) {
             if (data == 'error') {
                 alert('Error!');
             } else if (data == 'exist') {
                 alert('Folder exist!');
             } else {
-                getContent(path);
+                getContent(data);
             }
         }
     });
@@ -255,19 +249,12 @@ $(document).ready(function () {
 
     // добавление каталога
     $('body').on('click', '.js-add-group', function () {
-        var path = $('.js-title').attr('this-path');
-        var fullpath = $('.js-title').attr('this-fullpath');
-        var title = prompt("Enter folder name");
-        var name = translit(title);
+        var name = prompt("Enter folder name");
 
-        if (path != '' &&
-            path != null &&
-            fullpath != '' &&
-            fullpath != null &&
-            name != '' &&
+        if (name != '' &&
             name != null) {
 
-            addGroup(name, title, path, fullpath);
+            addGroup(name);
         } else {
             alert('error');
         }

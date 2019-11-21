@@ -16,10 +16,10 @@ function Delete($path) {
 
 $target                 = $BASEPATH.$_POST['name'];
 $result                 = Delete($target);
-$target_path            = substr($_POST['name'], 0, strrpos($_POST['name'], '/'));
-if ($target_path == '') {
-    $target_path        = 'HOME';
+$result_path            = substr($_POST['name'], 0, strrpos($_POST['name'], '/'));
+if ($result_path == '') {
+    $result_path        = 'HOME';
 }
-echo $target_path;
+echo $result_path;
 
 ?>

@@ -1,36 +1,23 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT'].'/core/config.php';
+session_start();
 
-$connect = mysqli_connect($host, $user, $password, $database)
-    or die("error");
-
-mysqli_set_charset($connect, "utf8");
-
-$query_check = 'SELECT * FROM `groups` WHERE `name` = "'.$_POST['name'].'"';
-$result_check = mysqli_query($connect, $query_check) or die("error");
-
-if ($result_check) {
-    $result_check = $result_check->fetch_assoc();
-}
-
-if (!empty($result_check)) {
+$target_path                = $_SESSION['fullpath'].'/'.$_POST['name'];
+if (file_exists($target_path)) {
     echo 'exist';
+    return;
 } else {
-    $query = "INSERT INTO groups (`name`,`title`,`path`,`fullpath`)
-        values( '".$_POST['name']."',
-                '".$_POST['title']."',
-                '".$_POST['path']."',
-                '".$_POST['fullpath']."')";
-
-    $result = mysqli_query($connect, $query)
-        or die("error");
-
-    if ($result) {
-        echo 'ok';
-    } else {
-        echo 'error';
-    }
+    $result                 = mkdir($target_path, 0755);
 }
+if ($result) {
+    $result_path            = $_SESSION['path'].'/'.$_POST['name'];
+    if ($result_path == '') {
+        $result_path        = 'HOME';
+    }
+} else {
+    $result_path            = 'error';
+}
+echo $result_path;
 
-mysqli_close($connect);
+session_write_close();
 ?>
