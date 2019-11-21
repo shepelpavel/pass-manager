@@ -1,23 +1,25 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT'].'/core/config.php';
 
-$connect = mysqli_connect($host, $user, $password, $database)
-    or die("error");
-
-mysqli_set_charset($connect, "utf8");
-
-if ($_POST['type'] == 'groups') {
-    $query_folders = 'DELETE FROM `groups` WHERE `fullpath` like "%'.$_POST['name'].'%"';
-    $result_folders = mysqli_query($connect, $query_folders) or die("error");
-
-    $query_pass = 'DELETE FROM `passwd` WHERE `fullpath` like "%'.$_POST['name'].'%"';
-    $result_pass = mysqli_query($connect, $query_pass) or die("error");
-} elseif ($_POST['type'] == 'passwd') {
-    $query = 'DELETE FROM `passwd` WHERE `name` = "'.$_POST['name'].'" AND `fullpath` = "'.$_POST['fullpath'].'"';
-    $result = mysqli_query($connect, $query) or die("error");
-} else {
-    echo 'error';
+function Delete($path) {
+    if (is_dir($path) === true) {
+        $files = array_diff(scandir($path), array('.', '..'));
+        foreach ($files as $file) {
+            Delete($path . '/' . $file);
+        }
+        return rmdir($path);
+    } else if (is_file($path) === true) {
+        return unlink($path);
+    }
+    return false;
 }
 
-mysqli_close($connect);
+$target                 = $BASEPATH.$_POST['name'];
+$result                 = Delete($target);
+$target_path            = substr($_POST['name'], 0, strrpos($_POST['name'], '/'));
+if ($target_path == '') {
+    $target_path        = 'HOME';
+}
+echo $target_path;
+
 ?>
