@@ -250,10 +250,7 @@ $(document).ready(function () {
 
         if (name != '' &&
             name != null) {
-
             addGroup(name);
-        } else {
-            alert('error');
         }
     });
 
@@ -261,14 +258,10 @@ $(document).ready(function () {
     $('body').on('click', '.js-folder-edit', function () {
         var oldname = $(this).closest('.js-tree-item').find('.js-tree-name').attr('target');
         var in_name = prompt('Enter new name', oldname.substr(1));
-        var name = '/' + in_name;
 
-        if (name != '' &&
-            name != null) {
-
-            editGroup(name, oldname);
-        } else {
-            alert('error');
+        if (in_name != '' &&
+            in_name != null) {
+            editGroup('/' + in_name, oldname);
         }
     });
 
