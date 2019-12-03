@@ -202,6 +202,12 @@ function copyButton(elem, key) {
     });
 }
 
+// функция нормализация имени файла/папки
+function normalizeName(name) {
+    var result = name.replace(/[^а-яa-z0-9\_\-\@\.\,\s]/ig, '');
+    return result;
+}
+
 $(document).ready(function () {
 
     // получение стартовой страницы
@@ -231,7 +237,7 @@ $(document).ready(function () {
 
     // добавление каталога
     $('body').on('click', '.js-add-group', function () {
-        var name = prompt("Enter folder name");
+        var name = normalizeName(prompt("Enter folder name"));
 
         if (name != '' &&
             name != null) {
@@ -242,7 +248,7 @@ $(document).ready(function () {
     // изменение каталога
     $('body').on('click', '.js-folder-edit', function () {
         var oldname = $(this).closest('.js-tree-item').find('.js-tree-name').attr('target');
-        var in_name = prompt('Enter new name', oldname.substr(1));
+        var in_name = normalizeName(prompt('Enter new name', oldname.substr(1)));
 
         if (in_name != '' &&
             in_name != null) {
@@ -341,6 +347,13 @@ $(document).ready(function () {
         if (text != '' && text != null) {
             copyButton(elem, text);
         }
+    });
+
+    // нормализация имени файла/каталога
+    $('body').on('input', '.js-input-title', function () {
+        var inpt = $(this).val();
+        var outpt = normalizeName(inpt);
+        $(this).val(outpt);
     });
 
     // перехват клавиши "назад"
