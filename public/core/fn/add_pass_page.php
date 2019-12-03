@@ -32,7 +32,6 @@ $_SESSION['breadcrumbs']            = $breadcrumbs;
 <?php include $_SERVER['DOCUMENT_ROOT'].'/chunks/block/menu.php'; ?>
 
 <div class="content">
-    <?php echo '<pre>'; print_r($_SESSION); echo '</pre>'; ?>
 
     <h2>Add</h2>
 
