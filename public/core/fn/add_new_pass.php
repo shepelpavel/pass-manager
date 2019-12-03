@@ -1,47 +1,17 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT'].'/core/config.php';
+session_start();
 
-$connect = mysqli_connect($host, $user, $password, $database)
-    or die("error");
+$new_file                = $_SESSION['fullpath'].'/'.$_POST['name'].'.json';
+$new_json                = json_encode($_POST['arr']);
 
-mysqli_set_charset($connect, "utf8");
-
-$query_check = 'SELECT * FROM `passwd`
-    WHERE `name` = "'.$_POST['name'].'"
-    AND `path` = "'.$_POST['path'].'"';
-
-$result_check = mysqli_query($connect, $query_check)
-    or die("error");
-
-if ($result_check) {
-    $result_check = $result_check->fetch_assoc();
-}
-
-if (!empty($result_check)) {
-    echo 'exist';
+if ($new_json && !file_exists($new_file)) {
+    file_put_contents($new_file, print_r($new_json, true));
 } else {
-    $query = "INSERT INTO passwd (
-        `name`,`title`,`path`,`fullpath`,`login`,`pass`,`link`,`note`
-        ) values(
-            '".$_POST['name']."',
-            '".$_POST['title']."',
-            '".$_POST['path']."',
-            '".$_POST['fullpath']."',
-            '".$_POST['login']."',
-            '".$_POST['pass']."',
-            '".$_POST['link']."',
-            '".$_POST['note']."'
-            )";
-
-    $result = mysqli_query($connect, $query) 
-        or die("error");
-        
-    if ($result) {
-        echo 'ok';
-    } else {
-        echo 'error';
-    }
+    echo 'error';
+    return;
 }
 
-mysqli_close($connect);
+echo $_SESSION['path'];
+session_write_close();
 ?>

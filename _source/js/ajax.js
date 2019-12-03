@@ -98,28 +98,20 @@ function getAddPassPage() {
 }
 
 // функция сохранения нового пароля
-function saveNewPass(path, fullpath, title, name, link, login, pass, note) {
-    var group = {
-        path: path,
-        fullpath: fullpath,
-        title: title,
+function saveNewPass(name, arr) {
+    var data = {
         name: name,
-        link: link,
-        login: login,
-        pass: pass,
-        note: note
+        arr: arr
     };
     $.ajax({
         type: 'POST',
         url: '/core/fn/add_new_pass.php',
-        data: group,
+        data: data,
         success: function (data) {
             if (data == 'error') {
                 alert('Error!');
-            } else if (data == 'exist') {
-                alert('Password exist!');
             } else {
-                getContent(path);
+                getContent(data);
             }
         }
     });
@@ -265,25 +257,17 @@ $(document).ready(function () {
 
     // сохранение нового пароля
     $('body').on('click', '.js-newpass-save', function () {
-        var path = $('.js-title').attr('this-path');
-        var fullpath = $('.js-title').attr('this-fullpath');
-        var title = $('.js-input-title').val();
-        var name = translit(title);
-        var link = $('.js-input-link').val();
-        var login = $('.js-input-login').val();
-        var pass = $('.js-input-pass').val();
-        var note = $('.js-input-note').val();
-
-        if (path != '' &&
-            path != null &&
-            fullpath != '' &&
-            fullpath != null &&
-            name != '' &&
-            name != null) {
-
-            saveNewPass(path, fullpath, title, name, link, login, pass, note);
+        var name = $('.js-input-title').val();
+        var arr = {
+            login: $('.js-input-login').val(),
+            pass: $('.js-input-pass').val(),
+            link: $('.js-input-link').val(),
+            note: $('.js-input-note').val()
+        };
+        if (name, arr) {
+            saveNewPass(name, arr);
         } else {
-            alert('error');
+            alert('Write name!');
         }
     });
 

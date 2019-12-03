@@ -38,15 +38,15 @@ $_SESSION['breadcrumbs']            = $breadcrumbs;
 
     <div class="breadcrumbs">
         <?php if ($_SESSION['path'] != '') {
-        echo '<div class="breadcrumbs__link js-tree-path" target="HOME">HOME</div>';
-        foreach ($_SESSION['breadcrumbs'] as $crumb) {
-            if (next($_SESSION['breadcrumbs'])) {
-                echo '<div class="breadcrumbs__arrow"> > </div><div class="breadcrumbs__link js-tree-path" target="'.$crumb['link'].'">'.$crumb['name'].'</div>';
-            } else {
-                echo '<div class="breadcrumbs__arrow"> > </div><div class="breadcrumbs__nolink">'.$crumb['name'].'</div>';
+            echo '<div class="breadcrumbs__link js-tree-path" target="HOME">HOME</div>';
+            foreach ($_SESSION['breadcrumbs'] as $crumb) {
+                if (next($_SESSION['breadcrumbs'])) {
+                    echo '<div class="breadcrumbs__arrow"> > </div><div class="breadcrumbs__link js-tree-path" target="'.$crumb['link'].'">'.$crumb['name'].'</div>';
+                } else {
+                    echo '<div class="breadcrumbs__arrow"> > </div><div class="breadcrumbs__nolink">'.$crumb['name'].'</div>';
+                }
             }
-        }
-    } ?>
+        } ?>
     </div>
 
     <?php if ($_SESSION['path'] != '') { ?>

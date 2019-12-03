@@ -1,68 +1,73 @@
-<?php 
-
+<?php
 include $_SERVER['DOCUMENT_ROOT'].'/core/config.php';
-
-$connect = mysqli_connect($host, $user, $password, $database)
-or die("error");
-
-mysqli_set_charset($connect, "utf8");
-
 session_start();
 
-// получение хлебных крошек
-$fldr = $_SESSION['folder']['name'];
-$pth = $_SESSION['folder']['path'];
-$bread[] = [
-	'name' => $_SESSION['folder']['name'],
-	'title' => $_SESSION['folder']['title'],
-	'path' => $_SESSION['folder']['path'],
-];
-while ($fldr != 'HOME' && $pth != 'HOME' && $i < 10) {
-	$i++;
-	$query_fldr = 'SELECT * FROM `groups` WHERE `name` = "'.$pth.'"';
-	$response = mysqli_query($connect, $query_fldr) or die("error");
-	if ($response) {
-		$response = $response->fetch_assoc();
-	}
-	$fldr = $response['name'];
-	$pth = $response['path'];
-	$bread[] = $response;
+if ($_SESSION['file'] != '') {
+    $backpath                       = $_SESSION['backpath'];
+    $path                           = $_SESSION['backpath'];
+} else {
+    $backpath                       = $_SESSION['path'];
+    $path                           = $_SESSION['path'];
 }
-
-session_write_close();
-
-// формирование хлебных крошек
-$breadcrumbs = '';
-foreach ($bread as $crumb) {
-	if ($crumb['name'] != 'HOME' && $crumb['name'] != '') {
-		$breadcrumbs = '<div class="breadcrumbs__arrow"> > </div><div class="breadcrumbs__link js-tree-path" target="'.$crumb['name'].'">
-		'.$crumb['title'].'</div>'.$breadcrumbs;
-	}
-	$i++;
+if ($backpath == '') {
+    $backpath                       = 'HOME';
 }
+if ($path == 'HOME') {
+    $path                           = '';
+}
+$fullpath                           = $BASEPATH.$path;
+$breadcrumbs                        = $_SESSION['breadcrumbs'];
+
+$_SESSION['folders_res']            = '';
+$_SESSION['backpath']               = $backpath;
+$_SESSION['path']                   = $path;
+$_SESSION['thisname']               = '';
+$_SESSION['fullpath']               = $fullpath;
+//$_SESSION['file']                   = '';
+$_SESSION['file_res']               = '';
+$_SESSION['breadcrumbs']            = $breadcrumbs;
 
 ?>
 
-<div class="content">
+<?php include $_SERVER['DOCUMENT_ROOT'].'/chunks/block/menu.php'; ?>
 
-    <h2 class="js-title" this-path="<?= $_SESSION['folder']['name'] ?>"
-        this-fullpath="<?= $_SESSION['folder']['fullpath'] ?>">
-        Add pass
-    </h2>
+<div class="content">
+    <?php echo '<pre>'; print_r($_SESSION); echo '</pre>'; ?>
+
+    <h2>Add</h2>
 
     <div class="breadcrumbs">
-        <div class="breadcrumbs__link js-tree-path" target="HOME">HOME</div><?= $breadcrumbs ?><div
-            class="breadcrumbs__arrow"> > </div>
+        <?php
+            if ($_SESSION['path'] == '') {
+                echo '<div class="breadcrumbs__link js-tree-path" target="HOME">HOME</div>';
+            } elseif ($_SESSION['file'] != '') {
+                echo '<div class="breadcrumbs__link js-tree-path" target="HOME">HOME</div>';
+                if ($_SESSION['backpath'] != 'HOME') {
+                    foreach ($_SESSION['breadcrumbs'] as $crumb) {
+                        if (next($_SESSION['breadcrumbs'])) {
+                            echo '<div class="breadcrumbs__arrow"> > </div><div class="breadcrumbs__link js-tree-path" target="'.$crumb['link'].'">'.$crumb['name'].'</div>';
+                        }
+                    }
+                }
+            } else {
+                echo '<div class="breadcrumbs__link js-tree-path" target="HOME">HOME</div>';
+                foreach ($_SESSION['breadcrumbs'] as $crumb) {
+                    echo '<div class="breadcrumbs__arrow"> > </div><div class="breadcrumbs__link js-tree-path" target="'.$crumb['link'].'">'.$crumb['name'].'</div>';
+                }
+            }
+        ?>
     </div>
 
+    <?php if ($_SESSION['path'] != '') { ?>
     <div class="controls">
-        <div class="controls__link js-tree-path" target="<?= $_SESSION['folder']['path'] ?>">
+        <div class="controls__link js-tree-path" target="<?= $_SESSION['backpath'] ?>">
             <img class="controls__link_icon" src="/_assets/img/svg/left-arrow.svg" alt="Back">
         </div>
         <div class="controls__link js-tree-path" target="HOME">
             <img class="controls__link_icon" src="/_assets/img/svg/home.svg" alt="Home">
         </div>
     </div>
+    <?php } ?>
 
     <div class="pass">
         <div class="pass__input pass__input_title">
@@ -86,8 +91,10 @@ foreach ($bread as $crumb) {
 
         <div class="pass__buttons">
             <div class="pass__buttons_link js-newpass-save">Сохранить</div>
-            <div class="pass__buttons_link js-tree-path" target="<?= $_SESSION['folder']['path'] ?>">Отмена</div>
+            <div class="pass__buttons_link js-tree-path" target="<?= $_SESSION['backpath'] ?>">Отмена</div>
         </div>
     </div>
 
 </div>
+
+<?php session_write_close(); ?>
