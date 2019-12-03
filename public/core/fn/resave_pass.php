@@ -11,7 +11,9 @@ if ($_SESSION['backpath'] == 'HOME') {
     $new_file               = $BASEPATH.$_SESSION['backpath'].'/'.$_POST['name'].'.json';
 }
 
-if ($target_json && file_exists($target_file) && !file_exists($new_file)) {
+if ($target_json && $target_file == $new_file) {
+    file_put_contents($new_file, print_r($target_json, true));
+} elseif ($target_json && $target_file != $new_file && !file_exists($new_file)) {
     unlink($target_file);
     file_put_contents($new_file, print_r($target_json, true));
 } else {
