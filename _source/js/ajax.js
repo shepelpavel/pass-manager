@@ -263,7 +263,7 @@ $(document).ready(function () {
 
     // сохранение нового пароля
     $('body').on('click', '.js-newpass-save', function () {
-        $('.js-crypt').blur();
+        $('.js-crypt').focusout();
 
         var name = $('.js-input-title').val();
         var arr = {
@@ -281,7 +281,7 @@ $(document).ready(function () {
 
     // сохранение существующего пароля
     $('body').on('click', '.js-pass-save', function () {
-        $('.js-crypt').blur();
+        $('.js-crypt').focusout();
 
         var u_confirm = confirm('Resave?');
 
