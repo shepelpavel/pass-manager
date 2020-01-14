@@ -7,4 +7,4 @@ $BASEPATH       = substr($_SERVER['DOCUMENT_ROOT'], 0, strrpos($_SERVER['DOCUMEN
 $title          = 'PssMgr';
 
 // version
-$ver            = '?v=0.1.2';
+$ver            = '?v=0.1.3';
