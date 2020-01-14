@@ -23,10 +23,11 @@ body {
     border: 1px solid $lightcolor1;
     transition: .3s;
     cursor: pointer;
-    
+
     &:hover {
         background-color: $black9;
         border: 1px solid $lightcolor3;
     }
 }
+
 @import 'animation';

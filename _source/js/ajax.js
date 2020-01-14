@@ -326,7 +326,7 @@ $(document).ready(function () {
     $('body').on('focusin', '.js-crypt', function () {
         var text = $(this).val();
         var elem = $(this);
-        
+
         if (text != '' && text != null) {
             focusInDecrypt(elem, text);
             $(elem).removeClass('crypted');
@@ -339,7 +339,7 @@ $(document).ready(function () {
         if ($(this).hasClass('crypted') == false) {
             var text = $(this).val();
             var elem = $(this);
-            
+
             if (text != '' && text != null) {
                 focusOutCrypt(elem, text);
                 $(elem).addClass('crypted');

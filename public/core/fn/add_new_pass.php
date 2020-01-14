@@ -14,4 +14,3 @@ if ($new_json && !file_exists($new_file)) {
 
 echo $_SESSION['path'];
 session_write_close();
-?>

@@ -21,5 +21,3 @@ if ($result_path == '') {
     $result_path        = 'HOME';
 }
 echo $result_path;
-
-?>

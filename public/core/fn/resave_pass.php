@@ -23,4 +23,3 @@ if ($target_json && $target_file == $new_file) {
 
 echo $_SESSION['backpath'];
 session_write_close();
-?>

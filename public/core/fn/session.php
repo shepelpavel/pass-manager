@@ -6,4 +6,3 @@ if (!$_SESSION['key']) {
 }
 
 session_write_close();
-?>

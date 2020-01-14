@@ -21,4 +21,3 @@ if ($result) {
 echo $result_path;
 
 session_write_close();
-?>
