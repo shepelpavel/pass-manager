@@ -15,6 +15,6 @@
 
     <script src="/_assets/module/jquery/jquery-3.4.1.min.js" charset="utf-8"></script>
 
-    <link rel="stylesheet" href="/_assets/css/style.css">
+    <link rel="stylesheet" href="/_assets/css/style.css<?= $ver ?>">
 
 </head>

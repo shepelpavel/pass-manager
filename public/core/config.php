@@ -5,3 +5,6 @@ $BASEPATH       = substr($_SERVER['DOCUMENT_ROOT'], 0, strrpos($_SERVER['DOCUMEN
 
 // meta
 $title          = 'PssMgr';
+
+// version
+$ver            = '?v=0.1.0';
