@@ -158,7 +158,7 @@ function delItem(name, type) {
 }
 
 // функция дешифровки ключа при фокусе
-function focusInDecrypt(elem, key) {
+function fieldDecrypt(elem, key) {
     $.ajax({
         type: 'POST',
         url: '/core/fn/get_key.php',
@@ -170,7 +170,7 @@ function focusInDecrypt(elem, key) {
 }
 
 // функция шифрования ключа при потере фокуса
-function focusOutCrypt(elem, key) {
+function fieldCrypt(elem, key) {
     $.ajax({
         type: 'POST',
         url: '/core/fn/get_key.php',
@@ -206,6 +206,17 @@ function copyButton(elem, key) {
 function normalizeName(name) {
     var result = name.replace(/[^а-яa-z0-9\_\-\@\.\,\s]/ig, '');
     return result;
+}
+
+// функция проверки зашифрованности полей
+function checkAllCrypt() {
+    if ($('.js-crypt.decrypted:not(.empty)').length > 0) {
+        $('.js-pass-save').addClass('hide');
+        $('.js-newpass-save').addClass('hide');
+    } else if ($('.js-input-title.edit').length > 0) {
+        $('.js-pass-save').removeClass('hide');
+        $('.js-newpass-save').removeClass('hide');
+    }
 }
 
 $(document).ready(function () {
@@ -263,8 +274,6 @@ $(document).ready(function () {
 
     // сохранение нового пароля
     $('body').on('click', '.js-newpass-save', function () {
-        $('.js-crypt').focusout();
-
         var name = $('.js-input-title').val();
         var arr = {
             login: $('.js-input-login').val(),
@@ -281,8 +290,6 @@ $(document).ready(function () {
 
     // сохранение существующего пароля
     $('body').on('click', '.js-pass-save', function () {
-        $('.js-crypt').focusout();
-
         var u_confirm = confirm('Resave?');
 
         if (u_confirm) {
@@ -322,39 +329,58 @@ $(document).ready(function () {
         }
     });
 
-    // дешифрование поля при фокусе
-    $('body').on('focusin', '.js-crypt', function () {
-        var text = $(this).val();
-        var elem = $(this);
-
+    // дешифрование пароля
+    $('body').on('click', '.js-crypt-decrypt.crypted', function () {
+        var field = $(this).closest('.js-field');
+        var elem = $(field).find('.js-crypt');
+        var text = $(elem).val();
         if (text != '' && text != null) {
-            focusInDecrypt(elem, text);
-            $(elem).removeClass('crypted');
+            fieldDecrypt(elem, text);
+            $(elem).removeClass('crypted').addClass('decrypted').prop("disabled", false);
+            $(this).removeClass('crypted').addClass('decrypted').attr('src', '/_assets/img/svg/key.svg');
             $(this).next('.js-pass-copy').addClass('hide');
         }
+        checkAllCrypt();
     });
 
-    // шифрование поля при потере фокуса
-    $('body').on('focusout', '.js-crypt', function () {
-        if ($(this).hasClass('crypted') == false) {
-            var text = $(this).val();
-            var elem = $(this);
-
-            if (text != '' && text != null) {
-                focusOutCrypt(elem, text);
-                $(elem).addClass('crypted');
-                $('.js-pass-copy').removeClass('hide');
-            }
+    // шифрование пароля
+    $('body').on('click', '.js-crypt-decrypt.decrypted', function () {
+        var field = $(this).closest('.js-field');
+        var elem = $(field).find('.js-crypt');
+        var text = $(elem).val();
+        if (text != '' && text != null) {
+            fieldCrypt(elem, text);
+            $(elem).removeClass('decrypted').addClass('crypted').prop("disabled", true);
+            $(this).removeClass('decrypted').addClass('crypted').attr('src', '/_assets/img/svg/eye.svg');
+            $(this).next('.js-pass-copy').removeClass('hide');
         }
+        checkAllCrypt();
     });
 
     // кнопка скопировать пароль
     $('body').on('click', '.js-pass-copy', function () {
-        var text = $(this).prev('input').val();
+        var text = $(this).closest('.js-field').find('.js-crypt').val();
         var elem = $(this);
         if (text != '' && text != null) {
             copyButton(elem, text);
         }
+    });
+
+    // включение/выключение кнопок копирования и шифрования
+    $('body').on('input propertychange', '.js-crypt', function () {
+        var elem = $(this);
+        var inputval = $(elem).val();
+        var field = $(elem).closest('.js-field');
+        if (inputval != '' && inputval != null) {
+            $(field).find('.js-crypt-decrypt').removeClass('hide').attr('src', '/_assets/img/svg/key.svg');
+            $(elem).removeClass('empty');
+        } else {
+            $(field).find('.js-pass-copy').addClass('hide');
+            $(field).find('.js-crypt-decrypt').addClass('hide');
+            $(elem).addClass('empty');
+        }
+        $('.js-input-title').addClass('edit');
+        checkAllCrypt();
     });
 
     // нормализация имени файла/каталога

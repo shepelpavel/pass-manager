@@ -10,8 +10,8 @@
         <div class="button menu__inner_link js-add-pass">
             Добавить пароль
         </div>
-        <div class="button menu__inner_link js-change-key">
+        <!-- <div class="button menu__inner_link js-change-key">
             Изменить ключ
-        </div>
+        </div> -->
     </div>
 </div>

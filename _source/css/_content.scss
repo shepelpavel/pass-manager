@@ -284,7 +284,8 @@
                 border-bottom: 0;
             }
 
-            &_copy {
+            &_copy,
+            &_crypt {
                 width: 26px;
                 padding: 6px;
                 background-color: $darkcolor7;
@@ -307,11 +308,22 @@
                     border: 0;
                     margin: 0;
                 }
+
+                &.textarea {
+                    &_crypt {
+                        align-self: flex-start;
+                    }
+
+                    &_copy {
+                        align-self: flex-start;
+                    }
+                }
             }
         }
 
         &__buttons {
             display: flex;
+            flex-direction: row-reverse;
             justify-content: space-between;
             margin-bottom: 20px;
 
@@ -327,13 +339,21 @@
                 border: 1px solid $lightcolor3;
                 cursor: pointer;
                 transition: .3s;
+                transform-origin: right;
+                transform: scaleX(1);
 
-                &:first-child {
-                    margin-right: 6px;
+                &:last-child {
+                    @media (max-width: 767px) {
+                        margin-right: 6px;
+                    }
                 }
 
                 &:hover {
                     background-color: $black;
+                }
+
+                &.hide {
+                    transform: scaleX(0);
                 }
             }
         }
