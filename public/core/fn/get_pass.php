@@ -65,19 +65,19 @@ $_SESSION['breadcrumbs']            = $breadcrumbs;
             <input class="js-input-title" type="text" name="title" value="<?= $_SESSION['thisname'] ?>">
         </div>
         <div class="pass__input pass__input_link">
-            <input class="js-input-link js-crypt" type="text" name="link" value="<?= $_SESSION['file_res']['link'] ?>">
+            <input class="js-input-link js-crypt crypted" type="text" name="link" value="<?= $_SESSION['file_res']['link'] ?>">
             <img class="pass__input_copy js-pass-copy" src="/_assets/img/svg/copy.svg" alt="Copy">
         </div>
         <div class="pass__input pass__input_login">
-            <input class="js-input-login js-crypt" type="text" name="login" value="<?= $_SESSION['file_res']['login'] ?>">
+            <input class="js-input-login js-crypt crypted" type="text" name="login" value="<?= $_SESSION['file_res']['login'] ?>">
             <img class="pass__input_copy js-pass-copy" src="/_assets/img/svg/copy.svg" alt="Copy">
         </div>
         <div class="pass__input pass__input_pass">
-            <input class="js-input-pass js-crypt" type="text" name="pass" value="<?= $_SESSION['file_res']['pass'] ?>">
+            <input class="js-input-pass js-crypt crypted" type="text" name="pass" value="<?= $_SESSION['file_res']['pass'] ?>">
             <img class="pass__input_copy js-pass-copy" src="/_assets/img/svg/copy.svg" alt="Copy">
         </div>
         <div class="pass__input pass__input_note">
-            <textarea class="js-input-note js-crypt" name="note" rows="8" cols="80"><?= $_SESSION['file_res']['note'] ?></textarea>
+            <textarea class="js-input-note js-crypt crypted" name="note" rows="8" cols="80"><?= $_SESSION['file_res']['note'] ?></textarea>
         </div>
 
         <div class="pass__buttons">

@@ -263,6 +263,8 @@ $(document).ready(function () {
 
     // сохранение нового пароля
     $('body').on('click', '.js-newpass-save', function () {
+        $('.js-crypt').blur();
+
         var name = $('.js-input-title').val();
         var arr = {
             login: $('.js-input-login').val(),
@@ -279,6 +281,8 @@ $(document).ready(function () {
 
     // сохранение существующего пароля
     $('body').on('click', '.js-pass-save', function () {
+        $('.js-crypt').blur();
+
         var u_confirm = confirm('Resave?');
 
         if (u_confirm) {
@@ -322,21 +326,25 @@ $(document).ready(function () {
     $('body').on('focusin', '.js-crypt', function () {
         var text = $(this).val();
         var elem = $(this);
-        $(this).next('.js-pass-copy').addClass('hide');
-
-        if (text != '' && text != '') {
+        
+        if (text != '' && text != null) {
             focusInDecrypt(elem, text);
+            $(elem).removeClass('crypted');
+            $(this).next('.js-pass-copy').addClass('hide');
         }
     });
 
     // шифрование поля при потере фокуса
     $('body').on('focusout', '.js-crypt', function () {
-        var text = $(this).val();
-        var elem = $(this);
-        $('.js-pass-copy').removeClass('hide');
-
-        if (text != '' && text != null) {
-            focusOutCrypt(elem, text);
+        if ($(this).hasClass('crypted') == false) {
+            var text = $(this).val();
+            var elem = $(this);
+            
+            if (text != '' && text != null) {
+                focusOutCrypt(elem, text);
+                $(elem).addClass('crypted');
+                $('.js-pass-copy').removeClass('hide');
+            }
         }
     });
 
