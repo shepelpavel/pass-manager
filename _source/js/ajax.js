@@ -383,6 +383,12 @@ $(document).ready(function () {
         checkAllCrypt();
     });
 
+    // кнопка сохранения, при изменении имени
+    $('body').on('input propertychange', '.js-input-title', function () {
+        $(this).addClass('edit');
+        checkAllCrypt();
+    });
+
     // нормализация имени файла/каталога
     $('body').on('input', '.js-input-title', function () {
         var inpt = $(this).val();
