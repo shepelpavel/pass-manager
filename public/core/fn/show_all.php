@@ -33,17 +33,24 @@ $all_json = getDirContents($BASEPATH, strlen($BASEPATH));
         </div>
     </div>
 
-    <?php foreach ($all_json as $val) {
-        $file_res = json_decode(file_get_contents($BASEPATH . $val), true);
-    ?>
-        <div class="allpass__item js-allpass-item">
-            <div class="allpass__item_field allpass__item_name js-allpass-path"><?= $val ?></div>
-            <div class="allpass__item_field js-allpass-field js-allpass-login"><?= $file_res['login'] ?></div>
-            <div class="allpass__item_field js-allpass-field js-allpass-pass"><?= $file_res['pass'] ?></div>
-            <div class="allpass__item_field js-allpass-field js-allpass-link"><?= $file_res['link'] ?></div>
-            <div class="allpass__item_field js-allpass-field js-allpass-note"><?= $file_res['note'] ?></div>
-        </div>
-    <?php } ?>
+    <div class="js-allpass-body">
+        <?php foreach ($all_json as $val) {
+            $file_res = json_decode(file_get_contents($BASEPATH . $val), true);
+        ?>
+            <div class="allpass__item js-allpass-item">
+                <h3 class="allpass__item_field allpass__item_name js-allpass-path"><?= $val ?></h3>
+                <div class="allpass__item_label"><sub>login</sub></div>
+                <p class="allpass__item_field js-allpass-field js-allpass-login"><?= $file_res['login'] ?></p>
+                <div class="allpass__item_label"><sub>pass</sub></div>
+                <p class="allpass__item_field js-allpass-field js-allpass-pass"><?= $file_res['pass'] ?></p>
+                <div class="allpass__item_label"><sub>link</sub></div>
+                <p class="allpass__item_field js-allpass-field js-allpass-link"><?= $file_res['link'] ?></p>
+                <div class="allpass__item_label"><sub>note</sub></div>
+                <p class="allpass__item_field js-allpass-field js-allpass-note"><?= $file_res['note'] ?></p>
+            </div>
+            <hr>
+        <?php } ?>
+    </div>
 
 </div>
 

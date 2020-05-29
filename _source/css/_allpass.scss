@@ -14,6 +14,10 @@
         &_name {
             background-color: $darkcolor5;
         }
+        &_label {
+            font-size: 10px;
+            color: $lightcolor5;
+        }
     }
 
     &__buttons {

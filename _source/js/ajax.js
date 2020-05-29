@@ -242,6 +242,17 @@ function showAll() {
         }
     });
 }
+// функция создания бэкапа
+function backUp(inner) {
+    $.ajax({
+        type: 'POST',
+        url: '/core/fn/backup.php',
+        data: "inner=" + inner,
+        success: function (data) {
+            alert(data);
+        }
+    });
+}
 
 // функция нормализация имени файла/папки
 function normalizeName(name) {
@@ -449,6 +460,11 @@ $(document).ready(function () {
                 allDecrypt($(element), value);
             }
         });
+    });
+
+    $('body').on('click', '.js-make-backup', function () {
+        var inner = $('.js-allpass-body').html();
+        backUp(inner);
     });
 
     // перехват клавиши "назад"
