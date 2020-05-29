@@ -36,8 +36,8 @@
                 <pre class="result js-generate-password">---</pre>
             </div>
         </div>
-        <!-- <div class="button menu__inner_link js-change-key">
+        <div class="button menu__inner_link js-show-all">
             Изменить ключ
-        </div> -->
+        </div>
     </div>
 </div>

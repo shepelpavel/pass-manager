@@ -181,6 +181,28 @@ function fieldCrypt(elem, key) {
     });
 }
 
+// функция дешифровки всего
+function allDecrypt(elem, key) {
+    $.ajax({
+        type: 'POST',
+        url: '/core/fn/get_key.php',
+        success: function (data) {
+            $('.js-decrypt-all').css({
+                'opacity': '0'
+            });
+            var decode = decoding(data, key);
+            $(elem).text(decode);
+            setTimeout(function() {
+                $('.js-decrypt-all').hide();
+                $('.js-make-backup').css({
+                    'display': 'flex',
+                    'opacity': '1'
+                });
+            }, 600);
+        }
+    });
+}
+
 // функция кнопки копирования пароля
 function copyButton(elem, key) {
     $.ajax({
@@ -198,6 +220,25 @@ function copyButton(elem, key) {
             setTimeout(function () {
                 $('.js-pass-copy').removeClass('copied');
             }, 1000);
+        }
+    });
+}
+
+// функция показать все
+function showAll() {
+    $.ajax({
+        type: 'POST',
+        url: '/core/fn/show_all.php',
+        success: function (data) {
+            $('#page').animate({
+                opacity: 0
+            }, 300, function () {
+                $('#page').html(data);
+                $(window).scrollTop(0);
+            });
+            $('#page').animate({
+                opacity: 1
+            }, 300);
         }
     });
 }
@@ -394,6 +435,20 @@ $(document).ready(function () {
         var inpt = $(this).val();
         var outpt = normalizeName(inpt);
         $(this).val(outpt);
+    });
+
+    $('body').on('click', '.js-show-all', function () {
+        showAll();
+    });
+
+    // расшифровать все
+    $('body').on('click', '.js-decrypt-all', function () {
+        $('.js-allpass-field').each(function(indx, element){
+            var value = $(element).text();
+            if (value != '' && value != null) {
+                allDecrypt($(element), value);
+            }
+        });
     });
 
     // перехват клавиши "назад"
