@@ -1,0 +1,1 @@
+function recoding(o){console.log(o)}
